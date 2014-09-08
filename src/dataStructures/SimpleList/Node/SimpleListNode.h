@@ -5,10 +5,15 @@ class SimpleListNode: public Node {
 public:
     SimpleListNode();
     virtual ~SimpleListNode();
-    void setNext(SimpleListNode pNextNode);
-    Node getNext();
+    void setElement(int pElement);
+    int* getElement();
+    void setNext(SimpleListNode* pNextNode);
+    SimpleListNode* getNext();
+    void setPrevious(SimpleListNode* pPreviousNode);
+    SimpleListNode* getPrevious();
 private:
-    Node _next;
+    Node* _next ;
+    Node* _previous;
 };
 
 #endif // SIMPLELISTNODE_H

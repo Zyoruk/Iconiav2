@@ -6,9 +6,9 @@ public:
     Node();
     //Node(K pElement);
     virtual ~Node();
-    int getElement();
-    void setElement(int pElement);
-private:
+    virtual int* getElement();
+    virtual void setElement(int pElement);
+protected:
     int _element;
 };
 #endif // NODE_H

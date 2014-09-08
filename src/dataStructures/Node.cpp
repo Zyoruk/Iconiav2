@@ -10,5 +10,5 @@ void Node::setElement(int pElement)
  this->_element = pElement;
 }
 
-int Node::getElement(){ return this->_element; }
+int* Node::getElement(){ return &(this->_element); }
 

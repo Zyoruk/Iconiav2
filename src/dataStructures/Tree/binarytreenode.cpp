@@ -1,8 +1,9 @@
 #include "binarytreenode.h"
+#include <cstddef>
 
 BinaryTreeNode::BinaryTreeNode()
 {
-    this->setElement(0);
+    this->setElement(NULL);
 }
 int* BinaryTreeNode::getElement(){
     return &this->_element;

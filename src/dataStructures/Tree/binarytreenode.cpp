@@ -3,7 +3,10 @@
 
 BinaryTreeNode::BinaryTreeNode()
 {
-    this->setElement(NULL);
+    this->_element = NULL;
+    this->_left = NULL;
+    this->_right = NULL;
+    this->_father = NULL;
 }
 int* BinaryTreeNode::getElement(){
     return &this->_element;
@@ -21,6 +24,10 @@ BinaryTreeNode* BinaryTreeNode::getRight(){
     return (BinaryTreeNode*)this->_right;
 }
 
+BinaryTreeNode* BinaryTreeNode::getFather(){
+    return (BinaryTreeNode*)this->_father;
+}
+
 void BinaryTreeNode::setLeft(BinaryTreeNode *pLeft){
     this->_left = pLeft;
 }
@@ -28,3 +35,6 @@ void BinaryTreeNode::setRight(BinaryTreeNode *pRight){
     this->_right = pRight;
 }
 
+void BinaryTreeNode::setFather(BinaryTreeNode* pFather){
+    this->_father = pFather;
+}

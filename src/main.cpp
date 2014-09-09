@@ -19,15 +19,10 @@ int main()
     node2->setRight(rightNode);
     cout << *(node2->getRight()->getElement()) << "\n";
 
-    BinaryTree* myTree = new BinaryTree();
-    cout << myTree;
-    myTree->add(98);
-    myTree->add(100);
-
-    bool toKnow = *(myTree->search(98)->getElement()) == 98;
-    cout << toKnow;
-    int* searchedNode = myTree->search(98)->getElement();
-
-    cout << *(searchedNode) << "\n";
+    cout << "Test tree\n";
+    BinaryTree* newTree = new BinaryTree();
+    cout << newTree <<"\n";
+    (*newTree).add(98);
+    cout << newTree->search(98)->getElement();
     return 0;
 }

@@ -11,6 +11,8 @@ public:
 private:
     BinaryTreeNode* _root;
     BinaryTreeNode* searchAux(int pElement, BinaryTreeNode* pLeaf);
+    bool addAux(int pElement , BinaryTreeNode* pLeaf);
+    bool removeAux ( int pElement , BinaryTreeNode* pLeaf);
 };
 
 #endif // BINARYTREE_H

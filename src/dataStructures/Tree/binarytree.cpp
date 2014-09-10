@@ -7,10 +7,18 @@ BinaryTree::BinaryTree()
     this->_root = new BinaryTreeNode();
 }
 
-void BinaryTree::printRoot(){
-    std::cout << this->_root << "\n";
-    std::cout << *(this->_root->getElement())<<"\n";
-}
+//void BinaryTree::printRoot(){
+//    std::cout << "\nroot "<<this->_root << "\n";
+//    std::cout << "root element " << *(this->_root->getElement())<<"\n";
+
+//    std::cout << "root left node pointer " << this->_root->getLeft() << "\n";
+//    std::cout << "root left node element pointer " << this->_root->getLeft()->getElement() << "\n";
+//    std::cout << "root left node element " << *(this->_root->getLeft()->getElement()) << "\n";
+
+//    std::cout << "root right node pointer " << this->_root->getRight() << "\n";
+//    std::cout << "root right node element pointer " << this->_root->getRight()->getElement() << "\n";
+//    std::cout << "root right node element " << *(this->_root->getRight()->getElement()) << "\n";
+//}
 bool BinaryTree::add(int pElement)
 {
     std::cout << "Entering add method ...";
@@ -22,29 +30,52 @@ bool BinaryTree::add(int pElement)
     }
 }
 
-bool BinaryTree::addAux(int pElement , BinaryTreeNode* pleaf){
-    if (*(pleaf->getElement()) == pElement){
-        return false;
-    }else if (*(pleaf->getElement()) < pElement){
-        if (*(pleaf->getRight()->getElement()) == NULL || pleaf->getRight()== NULL){
-            BinaryTreeNode* _rightNodeToAdd = new BinaryTreeNode();
-            (*_rightNodeToAdd).setElement(pElement);
-            (*pleaf).setRight(_rightNodeToAdd);
-            (*_rightNodeToAdd).setFather(pleaf);
-            return true;
+bool BinaryTree::addAux(int pElement , BinaryTreeNode* pNode){
+//   {
+//        if (*(pNode->getElement()) == pElement){
+//            return false;
+//        }else if (*(pNode->getElement()) < pElement){
+//            if (*(pNode->getRight()->getElement()) == NULL || pNode->getRight()== NULL){
+//                BinaryTreeNode* _rightNodeToAdd = new BinaryTreeNode();
+//                (*_rightNodeToAdd).setElement(pElement);
+//                (*pNode).setRight(_rightNodeToAdd);
+//                (*_rightNodeToAdd).setFather(pNode);
+//                return true;
+//            }else{
+//                return addAux(pElement , pNode->getRight());
+//            }
+//        }else{
+//            if (*(pNode->getLeft()->getElement()) == NULL || pNode->getLeft() == NULL){
+//                BinaryTreeNode* _leftNodeToAdd = new BinaryTreeNode();
+//                (*_leftNodeToAdd).setElement(pElement);
+//                (*pNode).setLeft(_leftNodeToAdd);
+//                (*_leftNodeToAdd).setFather(pNode);
+//                return true;
+//            }else{
+//                return addAux(pElement , pNode->getLeft());
+//            }
+//        }
+//    }
+    if ( pElement < (*pNode->getElement())){
+        if (pNode->getLeft() == NULL){
+            BinaryTreeNode* leftToAdd = new BinaryTreeNode();
+            leftToAdd->setElement(pElement);
+            pNode->setLeft(leftToAdd);
+            leftToAdd->setFather(pNode);
         }else{
-            return addAux(pElement , pleaf->getRight());
+            return addAux(pElement , pNode->getLeft());
+        }
+    }else if (pElement > (*pNode->getElement())){
+        if (pNode->getRight() == NULL){
+            BinaryTreeNode* rightToAdd = new BinaryTreeNode();
+            rightToAdd->setElement(pElement);
+            pNode->setRight(rightToAdd);
+            rightToAdd->setFather(pNode);
+        }else{
+            return addAux(pElement , pNode->getRight());
         }
     }else{
-        if (*(pleaf->getLeft()->getElement()) == NULL || pleaf->getLeft() == NULL){
-            BinaryTreeNode* _leftNodeToAdd = new BinaryTreeNode();
-            (*_leftNodeToAdd).setElement(pElement);
-            (*pleaf).setLeft(_leftNodeToAdd);
-            (*_leftNodeToAdd).setFather(pleaf);
-            return true;
-        }else{
-            return addAux(pElement , pleaf->getLeft());
-        }
+        return false;
     }
 }
 

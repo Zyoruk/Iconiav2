@@ -11,9 +11,9 @@ SOURCES += \
     src/dataStructures/Tree/binarytree.cpp
 
 HEADERS += \
-    src/dataStructures/Node.h \
     src/dataStructures/SimpleList/Node/SimpleListNode.h \
     src/dataStructures/Iterator.h \
     src/dataStructures/Tree/binarytreenode.h \
-    src/dataStructures/Tree/binarytree.h
+    src/dataStructures/Tree/binarytree.h \
+    src/dataStructures/interfaceNode.h
 

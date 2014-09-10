@@ -94,6 +94,13 @@ bool BinaryTree::removeAux (int pElement , BinaryTreeNode* pleaf){
             delete pleaf;
             return true;
         }else if (pleaf->getRight() == NULL){
+            pleaf->getFather()->setLeft(pleaf->getLeft());
+            pleaf->setFather(NULL);
+            pleaf->setLeft(NULL);
+            delete pleaf;
+            return true;
+        }else{
+            //if has both leaves
 
         }
     }else{

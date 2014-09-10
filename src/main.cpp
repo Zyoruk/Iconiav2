@@ -21,8 +21,16 @@ int main()
 
     cout << "Test tree\n";
     BinaryTree* newTree = new BinaryTree();
-    cout << newTree <<"\n";
-    (*newTree).add(98);
-    cout << newTree->search(98)->getElement();
+    newTree->add(90);
+    newTree->add(98);
+    newTree->add(89);
+    newTree->add(89);
+
+    cout << "trying to remove \n";
+    bool test = newTree->remove(90);
+    cout << test << "\n";
+
+    test = newTree->remove(89);
+    cout << test << "\n";
     return 0;
 }

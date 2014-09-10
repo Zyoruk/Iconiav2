@@ -7,18 +7,6 @@ BinaryTree::BinaryTree()
     this->_root = new BinaryTreeNode();
 }
 
-//void BinaryTree::printRoot(){
-//    std::cout << "\nroot "<<this->_root << "\n";
-//    std::cout << "root element " << *(this->_root->getElement())<<"\n";
-
-//    std::cout << "root left node pointer " << this->_root->getLeft() << "\n";
-//    std::cout << "root left node element pointer " << this->_root->getLeft()->getElement() << "\n";
-//    std::cout << "root left node element " << *(this->_root->getLeft()->getElement()) << "\n";
-
-//    std::cout << "root right node pointer " << this->_root->getRight() << "\n";
-//    std::cout << "root right node element pointer " << this->_root->getRight()->getElement() << "\n";
-//    std::cout << "root right node element " << *(this->_root->getRight()->getElement()) << "\n";
-//}
 bool BinaryTree::add(int pElement)
 {
     if(*this->_root->getElement() == NULL){
@@ -79,43 +67,19 @@ bool BinaryTree::remove(int pElement){
     if ( this->_root->getElement() == NULL){
         std::cout << "Empty Tree";
         return false;
-    }else if (*this->_root->getElement()== pElement){
-        this->_root = NULL;
-        return true;
     }else{
         return removeAux (pElement , this->_root);
     }
 }
 
-bool BinaryTree::removeAux (int pElement , BinaryTreeNode* pleaf){
-    //if the node is a leaf, just remove.
-    if (pleaf->getLeft() == NULL && *(pleaf->getLeft()->getElement()) == NULL){
-        //To know if the leaf is the right or left of its father.
-        if (*(pleaf->getFather()->getLeft()->getElement()) == *(pleaf->getElement())){
-            pleaf->getFather()->setLeft(NULL);
-        }else{
-            pleaf->getFather()->setRight(NULL);
-        }
-        pleaf->setFather(NULL);
-        delete (pleaf);
-        return true;
-    //If the node is the same we want to remove.
-    }else if(*pleaf->getElement() == pElement){
-        //We are removing a right node, and the father doesnt have a left one.
-        if (pleaf->getLeft() == NULL){
-            pleaf->getFather()->setRight(pleaf->getRight());
-            pleaf->setFather(NULL);
-            pleaf->setRight(NULL);
-            delete pleaf;
-            return true;
-        //We are removing a left node, and the father doesnt have a right one.
-        }else if (pleaf->getRight() == NULL){
-            pleaf->getFather()->setLeft(pleaf->getLeft());
-            pleaf->setFather(NULL);
-            pleaf->setLeft(NULL);
-            delete pleaf;
+bool BinaryTree::removeAux (int pElement , BinaryTreeNode* pCurrentNode){
+    //if it is a leaf
+    if (pCurrentNode->getLeft() == NULL && pCurrentNode->getRight() == NULL){
+        //is it is the same
+        if (pElement == *(pCurrentNode->getElement())){
             return true;
         }else{
+<<<<<<< HEAD
 
             //if has both leaves
             // Removing a node that has both left and right.
@@ -126,27 +90,39 @@ bool BinaryTree::removeAux (int pElement , BinaryTreeNode* pleaf){
             delete _temp;
             return true;
 
+=======
+            return false;
+        }
+
+    //If the element to remove is higher than the current node and the right is not null
+    }else if (*(pCurrentNode->getElement()) < pElement && pCurrentNode->getRight() != NULL){
+        return removeAux(pElement , pCurrentNode->getRight());
+    //If the element to remove is lower than the current node and the left is not null
+    }else if (*(pCurrentNode->getElement()) > pElement && pCurrentNode->getLeft() != NULL){
+        return removeAux(pElement , pCurrentNode->getLeft());
+>>>>>>> 422101285cf8da03feb87db49ffac0c95505f062
     }else{
-        if (pElement < *pleaf->getElement()){
-            if (pleaf->getLeft() != NULL){
-                return removeAux(pElement , pleaf->getLeft());
-            }else{
-                return false;
-            }
+
+        if (pCurrentNode->getLeft() == NULL){
+            pCurrentNode->setElement(*(lowestHighest(pCurrentNode->getRight())->getElement()));
         }else{
-            if (pleaf->getRight() != NULL){
-                return removeAux(pElement , pleaf->getRight());
-            }else{
-                return false;
-            }
+           // pCurrentNode->setElement(*(highestLowest(pCurrentNode->getLeft())->getElement()));
         }
     }
+
+
 }
 
-BinaryTreeNode* BinaryTree::lowestHigher(BinaryTreeNode *pnode){
-    if (pnode->getLeft() == NULL){
-        return pnode;
-    }else{
-        return lowestHigher(pnode->getLeft());
-    }
-}
+//BinaryTreeNode* BinaryTree::lowestHighest(BinaryTreeNode *pNode){
+//    if (pNode->getLeft() == NULL){
+//        return pNode;
+//    }else{
+//        return lowestHighest(pNode->getLeft());
+//    }
+//}
+
+//BinaryTree* BinaryTree::highestLowest(BinaryTreeNode* pNode){
+//    if (pNode->getRight() == NULL){
+//        return pNode;
+//    }else if ()
+//}

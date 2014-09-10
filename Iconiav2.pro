@@ -8,8 +8,7 @@ SOURCES += \
     src/dataStructures/Node.cpp \
     src/dataStructures/SimpleList/Node/SimpleListNode.cpp \
     src/dataStructures/Tree/binarytreenode.cpp \
-    src/dataStructures/Tree/binarytree.cpp \
-    src/dataStructures/testClasses/testSimpleListNode.cpp
+    src/dataStructures/Tree/binarytree.cpp
 
 HEADERS += \
     src/dataStructures/Node.h \

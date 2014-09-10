@@ -7,10 +7,14 @@ BinaryTree::BinaryTree()
     this->_root = new BinaryTreeNode();
 }
 
+void BinaryTree::printRoot(){
+    std::cout << this->_root << "\n";
+    std::cout << *(this->_root->getElement())<<"\n";
+}
 bool BinaryTree::add(int pElement)
 {
     std::cout << "Entering add method ...";
-    if(this->_root->getElement() == NULL){
+    if(*this->_root->getElement() == NULL){
         this->_root->setElement(pElement);
         return true;
     }else{
@@ -19,24 +23,24 @@ bool BinaryTree::add(int pElement)
 }
 
 bool BinaryTree::addAux(int pElement , BinaryTreeNode* pleaf){
-    if (*pleaf->getElement() == pElement){
+    if (*(pleaf->getElement()) == pElement){
         return false;
-    }else if (*pleaf->getElement() < pElement){
-        if (pleaf->getRight()->getElement() == NULL){
+    }else if (*(pleaf->getElement()) < pElement){
+        if (*(pleaf->getRight()->getElement()) == NULL || pleaf->getRight()== NULL){
             BinaryTreeNode* _rightNodeToAdd = new BinaryTreeNode();
-            _rightNodeToAdd->setElement(pElement);
-            pleaf->setRight(_rightNodeToAdd);
-            _rightNodeToAdd->setFather(pleaf);
+            (*_rightNodeToAdd).setElement(pElement);
+            (*pleaf).setRight(_rightNodeToAdd);
+            (*_rightNodeToAdd).setFather(pleaf);
             return true;
         }else{
             return addAux(pElement , pleaf->getRight());
         }
     }else{
-        if (pleaf->getLeft()->getElement() == NULL){
+        if (*(pleaf->getLeft()->getElement()) == NULL || pleaf->getLeft() == NULL){
             BinaryTreeNode* _leftNodeToAdd = new BinaryTreeNode();
-            _leftNodeToAdd->setElement(pElement);
-            pleaf->setLeft(_leftNodeToAdd);
-            _leftNodeToAdd->setFather(pleaf);
+            (*_leftNodeToAdd).setElement(pElement);
+            (*pleaf).setLeft(_leftNodeToAdd);
+            (*_leftNodeToAdd).setFather(pleaf);
             return true;
         }else{
             return addAux(pElement , pleaf->getLeft());

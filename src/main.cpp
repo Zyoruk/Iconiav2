@@ -22,7 +22,9 @@ int main()
     cout << "Test tree\n";
     BinaryTree* newTree = new BinaryTree();
     cout << newTree <<"\n" << "Now we are going to add 9̣8\n";
+    (newTree)->printRoot();
+    newTree->add(90);
     newTree->add(98);
-    cout << newTree->search(98)->getElement();
+    newTree->printRoot();
     return 0;
 }

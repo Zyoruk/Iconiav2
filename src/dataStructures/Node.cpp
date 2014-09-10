@@ -1,7 +1,7 @@
 #include "Node.h"
 #include <cstddef>
 Node::Node(){
-    this->_element = 0;
+    this->_element = NULL;
 }
 Node::~Node(){}
 

@@ -21,7 +21,6 @@ BinaryTree::BinaryTree()
 //}
 bool BinaryTree::add(int pElement)
 {
-    std::cout << "Entering add method ...";
     if(*this->_root->getElement() == NULL){
         this->_root->setElement(pElement);
         return true;
@@ -31,31 +30,6 @@ bool BinaryTree::add(int pElement)
 }
 
 bool BinaryTree::addAux(int pElement , BinaryTreeNode* pNode){
-//   {
-//        if (*(pNode->getElement()) == pElement){
-//            return false;
-//        }else if (*(pNode->getElement()) < pElement){
-//            if (*(pNode->getRight()->getElement()) == NULL || pNode->getRight()== NULL){
-//                BinaryTreeNode* _rightNodeToAdd = new BinaryTreeNode();
-//                (*_rightNodeToAdd).setElement(pElement);
-//                (*pNode).setRight(_rightNodeToAdd);
-//                (*_rightNodeToAdd).setFather(pNode);
-//                return true;
-//            }else{
-//                return addAux(pElement , pNode->getRight());
-//            }
-//        }else{
-//            if (*(pNode->getLeft()->getElement()) == NULL || pNode->getLeft() == NULL){
-//                BinaryTreeNode* _leftNodeToAdd = new BinaryTreeNode();
-//                (*_leftNodeToAdd).setElement(pElement);
-//                (*pNode).setLeft(_leftNodeToAdd);
-//                (*_leftNodeToAdd).setFather(pNode);
-//                return true;
-//            }else{
-//                return addAux(pElement , pNode->getLeft());
-//            }
-//        }
-//    }
     if ( pElement < (*pNode->getElement())){
         if (pNode->getLeft() == NULL){
             BinaryTreeNode* leftToAdd = new BinaryTreeNode();

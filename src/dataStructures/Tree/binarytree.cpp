@@ -89,9 +89,9 @@ bool BinaryTree::remove(int pElement){
 
 bool BinaryTree::removeAux (int pElement , BinaryTreeNode* pleaf){
     //if the node is a leaf, just remove.
-    if (pleaf->getLeft() == NULL && pleaf->getLeft() == NULL){
+    if (pleaf->getLeft() == NULL && *(pleaf->getLeft()->getElement()) == NULL){
         //To know if the leaf is the right or left of its father.
-        if (pleaf->getFather()->getLeft()->getElement() == pleaf->getElement()){
+        if (*(pleaf->getFather()->getLeft()->getElement()) == *(pleaf->getElement())){
             pleaf->getFather()->setLeft(NULL);
         }else{
             pleaf->getFather()->setRight(NULL);

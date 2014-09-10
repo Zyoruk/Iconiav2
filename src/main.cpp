@@ -21,8 +21,8 @@ int main()
 
     cout << "Test tree\n";
     BinaryTree* newTree = new BinaryTree();
-    cout << newTree <<"\n";
-    (*newTree).add(98);
+    cout << newTree <<"\n" << "Now we are going to add 9̣8\n";
+    newTree->add(98);
     cout << newTree->search(98)->getElement();
     return 0;
 }

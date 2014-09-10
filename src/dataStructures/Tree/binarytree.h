@@ -13,6 +13,7 @@ private:
     BinaryTreeNode* searchAux(int pElement, BinaryTreeNode* pLeaf);
     bool addAux(int pElement , BinaryTreeNode* pLeaf);
     bool removeAux ( int pElement , BinaryTreeNode* pLeaf);
+    BinaryTreeNode* lowestHigher (BinaryTreeNode* pnode);
 };
 
 #endif // BINARYTREE_H

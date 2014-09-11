@@ -8,8 +8,10 @@ public:
     bool add(int pElement);
     bool remove(int pElement);
     BinaryTreeNode* search(int pElement);
+    unsigned int getLenght();
 private:
     BinaryTreeNode* _root;
+    unsigned int lenght;
     BinaryTreeNode* searchAux(int pElement, BinaryTreeNode* pLeaf);
     bool addAux(int pElement , BinaryTreeNode* pLeaf);
     bool removeAux ( int pElement , BinaryTreeNode* pLeaf);

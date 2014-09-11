@@ -3,7 +3,7 @@
 
 BinaryTreeNode::BinaryTreeNode()
 {
-    this->_element = NULL;
+    this->_element = 0;
     this->_left = NULL;
     this->_right = NULL;
     this->_father = NULL;

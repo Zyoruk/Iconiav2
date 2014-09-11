@@ -1,7 +1,7 @@
 #include "interfaceNode.h"
 #include <cstddef>
 interfaceNode::interfaceNode(){
-    this->_element = NULL;
+    this->_element = 0;
 }
 interfaceNode::~interfaceNode(){}
 

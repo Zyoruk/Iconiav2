@@ -24,13 +24,18 @@ int main()
     newTree->add(90);
     newTree->add(98);
     newTree->add(89);
-    newTree->add(89);
-
-    cout << "trying to remove \n";
-    bool test = newTree->remove(90);
-    cout << test << "\n";
-
-    test = newTree->remove(89);
-    cout << test << "\n";
-    return 0;
+    newTree->add(97);
+    newTree->add(234);
+    newTree->add(3);
+    newTree->add(23);
+    newTree->add(54);
+    newTree->add(65);
+    newTree->add(67);
+    newTree->add(78);
+    newTree->add(94);
+    newTree->add(2);
+    newTree->add(0);
+    newTree->add(345435);
+    newTree->add(234);
+    cout << newTree->getLenght() << "\n";
 }

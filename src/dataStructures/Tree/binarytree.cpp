@@ -5,12 +5,19 @@
 BinaryTree::BinaryTree()
 {
     this->_root = new BinaryTreeNode();
+    this->lenght = 0;
 }
+
+unsigned int BinaryTree::getLenght(){
+    return this->lenght;
+}
+
 
 bool BinaryTree::add(int pElement)
 {
     if(*this->_root->getElement() == NULL){
         this->_root->setElement(pElement);
+        this->lenght += 1;
         return true;
     }else{
         return addAux(pElement , this->_root);
@@ -24,6 +31,8 @@ bool BinaryTree::addAux(int pElement , BinaryTreeNode* pNode){
             leftToAdd->setElement(pElement);
             pNode->setLeft(leftToAdd);
             leftToAdd->setFather(pNode);
+        this->lenght += 1;
+            return true;
         }else{
             return addAux(pElement , pNode->getLeft());
         }
@@ -33,6 +42,8 @@ bool BinaryTree::addAux(int pElement , BinaryTreeNode* pNode){
             rightToAdd->setElement(pElement);
             pNode->setRight(rightToAdd);
             rightToAdd->setFather(pNode);
+        this->lenght += 1;
+            return true;
         }else{
             return addAux(pElement , pNode->getRight());
         }

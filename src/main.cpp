@@ -37,5 +37,11 @@ int main()
     newTree->add(0);
     newTree->add(345435);
     newTree->add(234);
+    newTree->add(-98);
     cout << newTree->getLenght() << "\n";
+
+    cout << newTree->ifExists(98) << "\n";
+    cout << newTree->ifExists(0) << "\n";
+    cout << newTree->ifExists(-98) << "\n";
 }
+

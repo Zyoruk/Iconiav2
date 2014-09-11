@@ -8,6 +8,7 @@ public:
     bool add(int pElement);
     bool remove(int pElement);
     BinaryTreeNode* search(int pElement);
+    bool ifExists(int pElement);
     unsigned int getLenght();
 private:
     BinaryTreeNode* _root;
@@ -17,5 +18,4 @@ private:
     bool removeAux ( int pElement , BinaryTreeNode* pLeaf);
     BinaryTreeNode* lowestHighest (BinaryTreeNode* pNode);
 };
-
 #endif // BINARYTREE_H

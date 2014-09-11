@@ -52,28 +52,6 @@ bool BinaryTree::addAux(int pElement , BinaryTreeNode* pNode){
     }
 }
 
-BinaryTreeNode* BinaryTree::search(int pElement)
-{
-    return searchAux(pElement , this->_root);
-}
-
-BinaryTreeNode* BinaryTree::searchAux(int pElement, BinaryTreeNode* pleaf)
-{
-    if (this->_root->getElement() == NULL){
-        return NULL;
-    }else{
-        BinaryTreeNode* _leaf = pleaf;
-        if (* _leaf->getElement() == pElement){
-            return pleaf;
-        }else if(pElement < *_leaf->getElement()){
-            return searchAux (pElement , pleaf->getRight());
-        }else{
-            return searchAux (pElement , pleaf->getLeft());
-        }
-
-    }
-}
-
 bool BinaryTree::remove(int pElement){
     if ( this->_root->getElement() == NULL){
         std::cout << "Empty Tree";
@@ -83,9 +61,41 @@ bool BinaryTree::remove(int pElement){
     }
 }
 
+BinaryTreeNode* BinaryTree::search(int pElement){
+    if (this->lenght == 0){
+        return 0;
+    }else{
+        return searchAux(pElement , this->_root);
+    }
+}
+
+BinaryTreeNode* BinaryTree::searchAux(int pElement, BinaryTreeNode* pNode){
+    if (*pNode->getElement() == pElement){
+        return pNode;
+    }else if (*pNode->getElement() < pElement){
+        if (pNode->getRight()== 0){
+            return 0;
+        }
+        return searchAux(pElement , pNode->getRight());
+    }else{
+        if(pNode->getLeft() == 0){
+            return 0;
+        }
+        return searchAux(pElement, pNode->getLeft());
+    }
+}
+
 bool BinaryTree::removeAux (int pElement , BinaryTreeNode* pCurrentNode){
 
 }
+bool BinaryTree::ifExists(int pElement){
+    if (this->search(pElement) == 0){
+        return false;
+    }
+
+   return pElement == *(this->search(pElement)->getElement());
+}
+
 
 //BinaryTreeNode* BinaryTree::lowestHighest(BinaryTreeNode *pNode){
 //    if (pNode->getLeft() == NULL){

@@ -5,11 +5,11 @@
  * \brief The Node class is the base of all other data structure nodes. The idea is to keep relationship
  * between all the different nodes.
  */
-class Node {
+class interfaceNode {
 public:
-    Node();
+    interfaceNode();
     //Node(K pElement);
-    virtual ~Node();
+    virtual ~interfaceNode();
     virtual int* getElement();
     virtual void setElement(int pElement);
 protected:

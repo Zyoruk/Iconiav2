@@ -1,7 +1,7 @@
 #ifndef BINARYTREENODE_H
 #define BINARYTREENODE_H
-#include "src/dataStructures/Node.h"
-class BinaryTreeNode :public Node
+#include "src/dataStructures/interfaceNode.h"
+class BinaryTreeNode :public interfaceNode
 {
 public:
     BinaryTreeNode();
@@ -14,9 +14,9 @@ public:
     BinaryTreeNode* getRight();
     BinaryTreeNode* getFather();
 private:
-    Node* _right;
-    Node* _left;
-    Node* _father;
+    interfaceNode* _right;
+    interfaceNode* _left;
+    interfaceNode* _father;
 };
 
 #endif // BINARYTREENODE_H

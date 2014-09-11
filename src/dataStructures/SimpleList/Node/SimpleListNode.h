@@ -5,7 +5,7 @@
  * \brief The SimpleListNode class. A simple list node is the corresponding node to the data structure
  * "simple linked list".
  */
-class SimpleListNode: public Node {
+class SimpleListNode: public interfaceNode {
 public:
     /*!
      * \brief SimpleListNode is the constructor
@@ -47,11 +47,11 @@ private:
      * \brief _next this is a pointer to a node that is said is next to the current one
      */
 
-    Node* _next ;
+    interfaceNode* _next ;
     /*!
      * \brief _previous pointer to the node is said is before the current one
      */
-    Node* _previous;
+    interfaceNode* _previous;
 };
 
 #endif // SIMPLELISTNODE_H

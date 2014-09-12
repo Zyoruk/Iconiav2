@@ -17,4 +17,4 @@ Bitácora.
 	     - Habia hecho documentacion con Doxygen.
 10 Septiembre - Solucionado Add method del arbol binario.
 	      - Trabajando ahora con remove.
-
+13 Septiembre -Arbol binario ya es funcional , le hace falta la funcion de autobalanceo e implementacion de templates.

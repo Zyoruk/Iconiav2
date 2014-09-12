@@ -11,3 +11,10 @@ Bitácora.
 		- Sigo travesiando LucidChart.
 		- Implementado a grandes rasgos el nodo de una estructura de datos general , el nodo de la lista simple y lo probé.
 
+
+8 septiembre - Funcionan los nodos pero el arbol binario no me esta funcionando. Ya estan casi listos el search y el add.
+9 Septiembre - Trabajando remove del arbol binario .
+	     - Habia hecho documentacion con Doxygen.
+10 Septiembre - Solucionado Add method del arbol binario.
+	      - Trabajando ahora con remove.
+

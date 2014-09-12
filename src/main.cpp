@@ -21,25 +21,17 @@ int main()
 
     cout << "Test tree\n";
     BinaryTree* newTree = new BinaryTree();
-    newTree->add(90);
-    newTree->add(98);
-    newTree->add(89);
-    newTree->add(97);
-    newTree->add(234);
-    newTree->add(3);
-    newTree->add(23);
-    newTree->add(54);
-    newTree->add(65);
-    newTree->add(67);
-    newTree->add(78);
-    newTree->add(94);
-    newTree->add(2);
+    newTree->add(50);
+    newTree->add(48);
+    newTree->add(51);
+    newTree->add(47);
+    newTree->add(60);
+    newTree->add(99);
     newTree->add(0);
-    newTree->add(345435);
-    newTree->add(234);
-    newTree->add(-98);
     cout << newTree->getLenght() << "\n";
 
+    cout << "Lowest fo the high elements"<<*newTree->lowestHighest(newTree->_root)->getElement()<< "\n";
+    cout << "Highest if the low elements " << *newTree->highestLowest(newTree->_root)->getElement()<< "\n";;
     cout << newTree->ifExists(98) << "\n";
     cout << newTree->ifExists(0) << "\n";
     cout << newTree->ifExists(-98) << "\n";

@@ -15,7 +15,7 @@ unsigned int BinaryTree::getLenght(){
 
 bool BinaryTree::add(int pElement)
 {
-    if(*this->_root->getElement() == NULL){
+    if(*this->_root->getElement() == 0){
         this->_root->setElement(pElement);
         this->lenght += 1;
         return true;
@@ -97,16 +97,18 @@ bool BinaryTree::ifExists(int pElement){
 }
 
 
-//BinaryTreeNode* BinaryTree::lowestHighest(BinaryTreeNode *pNode){
-//    if (pNode->getLeft() == NULL){
-//        return pNode;
-//    }else{
-//        return lowestHighest(pNode->getLeft());
-//    }
-//}
+BinaryTreeNode* BinaryTree::highestLowest(BinaryTreeNode *pNode){
+    if (pNode->getLeft() == 0){
+        return pNode;
+    }else{
+        return lowestHighest(pNode->getLeft());
+    }
+}
 
-//BinaryTree* BinaryTree::highestLowest(BinaryTreeNode* pNode){
-//    if (pNode->getRight() == NULL){
-//        return pNode;
-//    }else if ()
-//}
+BinaryTreeNode* BinaryTree::lowestHighest(BinaryTreeNode* pNode){
+    if (pNode->getRight() == NULL){
+        return pNode;
+    }else{
+        return highestLowest(pNode->getRight());
+    }
+}

@@ -53,11 +53,41 @@ bool BinaryTree::addAux(int pElement , BinaryTreeNode* pNode){
 }
 
 bool BinaryTree::remove(int pElement){
-    if ( this->_root->getElement() == NULL){
+    if ( this->lenght == 0){
         std::cout << "Empty Tree";
         return false;
     }else{
-        return removeAux (pElement , this->_root);
+        return removeAux(pElement , this->_root);
+    }
+}
+
+bool BinaryTree::removeAux (int pElement , BinaryTreeNode* pCurrentNode){
+    BinaryTreeNode* tmp = this->searchAux(pElement , pCurrentNode);
+    if (tmp == 0){
+        return false;
+    }else{
+        if ((tmp->getLeft() == 0 ) && (tmp->getRight() == 0)){
+            if (*(tmp->getElement()) == pElement){
+                tmp->setElement(0);
+                tmp = 0 ;
+                this->lenght-= 1;
+                return true;
+            }else{
+                return false;
+            }
+        }else if ((tmp->getRight() == 0 ) && (tmp->getLeft() != 0)){
+            tmp->setElement(*(this->highestLowest(tmp)->getElement()));
+            this->lenght-= 1;
+            return this->removeAux(pElement , tmp->getLeft());
+        }else if ((tmp->getRight() != 0 ) && (tmp->getLeft() == 0)){
+            tmp->setElement(*(this->lowestHighest(tmp)->getElement()));
+            this->lenght-= 1;
+            return this->removeAux(pElement , tmp->getRight());
+        }else{
+            tmp->setElement(*(this->lowestHighest(tmp)->getElement()));
+            this->lenght-= 1;
+            return this->removeAux(pElement, tmp->getRight());
+        }
     }
 }
 
@@ -85,9 +115,6 @@ BinaryTreeNode* BinaryTree::searchAux(int pElement, BinaryTreeNode* pNode){
     }
 }
 
-bool BinaryTree::removeAux (int pElement , BinaryTreeNode* pCurrentNode){
-
-}
 bool BinaryTree::ifExists(int pElement){
     if (this->search(pElement) == 0){
         return false;

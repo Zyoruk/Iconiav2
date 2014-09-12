@@ -21,6 +21,7 @@ int main()
 
     cout << "Test tree\n";
     BinaryTree* newTree = new BinaryTree();
+    cout <<"Adding  [ 50 , 48 , 51 , 47 , 60 , 99 , 0 98 ] ...\n...\n";
     newTree->add(50);
     newTree->add(48);
     newTree->add(51);
@@ -28,12 +29,19 @@ int main()
     newTree->add(60);
     newTree->add(99);
     newTree->add(0);
-    cout << newTree->getLenght() << "\n";
-
-    cout << "Lowest fo the high elements"<<*newTree->lowestHighest(newTree->_root)->getElement()<< "\n";
-    cout << "Highest if the low elements " << *newTree->highestLowest(newTree->_root)->getElement()<< "\n";;
-    cout << newTree->ifExists(98) << "\n";
-    cout << newTree->ifExists(0) << "\n";
-    cout << newTree->ifExists(-98) << "\n";
+    newTree->add(98);
+    cout << newTree->getLenght() << " Current lenght of tree \n";
+    cout << newTree->ifExists(98) << " Searched 98 \n";
+    cout << newTree->ifExists(0) << " Searched 0 \n";
+    cout << newTree->ifExists(-98) << " Searched -98\n";
+    cout << "Deleting 98 ...\n";
+    newTree->remove(98);
+    cout << newTree->ifExists(98) << " Searched 98 \n";
+    cout << newTree->getLenght() << " Current lenght of tree \n";
+    cout << newTree->ifExists(50) << " Searched 50 \n";
+    cout << "Deleting 50 ...\n";
+    newTree->remove(50);
+    cout << newTree->ifExists(50) << " Searched 50 \n";
+    cout << newTree->getLenght() << " Current lenght of tree \n";
 }
 

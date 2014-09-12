@@ -10,14 +10,13 @@ public:
     BinaryTreeNode* search(int pElement);
     bool ifExists(int pElement);
     unsigned int getLenght();
-    BinaryTreeNode* lowestHighest (BinaryTreeNode* pNode);
-    BinaryTreeNode* highestLowest (BinaryTreeNode* pNode);
-       BinaryTreeNode* _root;
 private:
-
+    BinaryTreeNode* _root;
     unsigned int lenght;
     BinaryTreeNode* searchAux(int pElement, BinaryTreeNode* pLeaf);
     bool addAux(int pElement , BinaryTreeNode* pLeaf);
     bool removeAux ( int pElement , BinaryTreeNode* pLeaf);
+    BinaryTreeNode* lowestHighest (BinaryTreeNode* pNode);
+    BinaryTreeNode* highestLowest (BinaryTreeNode* pNode);
 };
 #endif // BINARYTREE_H

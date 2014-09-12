@@ -12,7 +12,6 @@ SOURCES += \
 
 HEADERS += \
     src/dataStructures/SimpleList/Node/SimpleListNode.h \
-    src/dataStructures/Iterator.h \
     src/dataStructures/Tree/binarytreenode.h \
     src/dataStructures/Tree/binarytree.h \
     src/dataStructures/interfaceNode.h

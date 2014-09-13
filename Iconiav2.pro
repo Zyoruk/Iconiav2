@@ -10,5 +10,6 @@ HEADERS += \
     src/dataStructures/SimpleList/Node/SimpleListNode.h \
     src/dataStructures/Tree/binarytreenode.h \
     src/dataStructures/Tree/binarytree.h \
-    src/dataStructures/interfaceNode.h
+    src/dataStructures/interfaceNode.h \
+    src/dataStructures/SimpleList/SimpleList.h
 

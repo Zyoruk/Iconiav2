@@ -2,46 +2,34 @@
 
 using namespace std;
 #include "src/dataStructures/SimpleList/Node/SimpleListNode.h"
+#include "src/dataStructures/SimpleList/SimpleList.h"
 #include "src/dataStructures/Tree/binarytreenode.h"
 #include "src/dataStructures/Tree/binarytree.h"
 int main()
 {
-    SimpleListNode<int>* node = new SimpleListNode<int>();
-    node->setElement(98);
-    cout << *(node->getElement()) << "\n";
+    cout << "Testing simple list\n";
+    SimpleList<int>* mySL = new SimpleList<int>();
+    mySL->append(98);
+    mySL->append(7);
+    mySL->append(78);
+    mySL->append(934);
+    mySL->append(9);
 
-    BinaryTreeNode<int>* node2 = new BinaryTreeNode<int>();
-    node2->setElement(898);
-    cout << *(node2->getElement()) << "\n";
+    cout << "Searching for 7 ... "<<  mySL->ifExists(7) <<"\n";
+    cout << "Searching for 98 ... "<<  mySL->ifExists(98) <<"\n";
+    cout << "Searching for 934 ... "<<  mySL->ifExists(934) <<"\n";
+    cout << "Searching for -7 ... "<<  mySL->ifExists(-7) <<"\n";
+    cout << "Current lenght: " << mySL->getLenght() <<"\n";
+    cout << "Index of 9 ... " << mySL->indexOf(9) <<"\n";
+    cout << "Element at index 4...  " << mySL->elementAt(4)<<"\n";
+    cout << "Element at index 5...  " << mySL->elementAt(5)<<"\n";
+    cout << "Removing 98 ... ";
+    cout << mySL->remove(98) << "\n";
+    cout << "Current lenght: " << mySL->getLenght()<<"\n";
+    cout << "Searching for 7 ... "<<  mySL->ifExists(7) <<"\n";
+    cout << "Searching for 98 ... "<<  mySL->ifExists(98) <<"\n";
+    cout << "Searching for 934 ... "<<  mySL->ifExists(934) <<"\n";
 
-    BinaryTreeNode<int>* rightNode = new BinaryTreeNode<int>();
-    rightNode->setElement(76);
-    node2->setRight(rightNode);
-    cout << *(node2->getRight()->getElement()) << "\n";
 
-    cout << "Test tree\n";
-    BinaryTree<int>* newTree = new BinaryTree<int>();
-    cout <<"Adding  [ 50 , 48 , 51 , 47 , 60 , 99 , 0 98 ] ...\n...\n";
-    newTree->add(50);
-    newTree->add(48);
-    newTree->add(51);
-    newTree->add(47);
-    newTree->add(60);
-    newTree->add(99);
-    newTree->add(0);
-    newTree->add(98);
-    cout << newTree->getLenght() << " Current lenght of tree \n";
-    cout << newTree->ifExists(98) << " Searched 98 \n";
-    cout << newTree->ifExists(0) << " Searched 0 \n";
-    cout << newTree->ifExists(-98) << " Searched -98\n";
-    cout << "Deleting 98 ...\n";
-    newTree->remove(98);
-    cout << newTree->ifExists(98) << " Searched 98 \n";
-    cout << newTree->getLenght() << " Current lenght of tree \n";
-    cout << newTree->ifExists(50) << " Searched 50 \n";
-    cout << "Deleting 50 ...\n";
-    newTree->remove(50);
-    cout << newTree->ifExists(50) << " Searched 50 \n";
-    cout << newTree->getLenght() << " Current lenght of tree \n";
 }
 

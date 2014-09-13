@@ -1,6 +1,7 @@
 #ifndef NODE_H
 #define NODE_H
-//template < class K >
+
+template < class K >
 /*!
  * \brief The Node class is the base of all other data structure nodes. The idea is to keep relationship
  * between all the different nodes.
@@ -10,9 +11,28 @@ public:
     interfaceNode();
     //Node(K pElement);
     virtual ~interfaceNode();
-    virtual int* getElement();
-    virtual void setElement(int pElement);
+    virtual K* getElement();
+    virtual void setElement(K pElement);
 protected:
-    int _element;
+    K _element;
 };
+template <typename K>
+
+interfaceNode<K>::interfaceNode(){
+    this->_element = 0;
+}
+
+template <typename K>
+interfaceNode<K>::~interfaceNode(){}
+
+template <typename K>
+void interfaceNode<K>::setElement(K pElement)
+{
+ this->_element = pElement;
+}
+
+template <typename K>
+K* interfaceNode<K>::getElement(){ return &(this->_element); }
+
+
 #endif // NODE_H

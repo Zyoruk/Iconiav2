@@ -1,21 +1,32 @@
-    #include "SimpleListNode.h"
+#include "SimpleListNode.h"
 #include <cstddef>
 
-SimpleListNode::SimpleListNode() {
+template <typename K>
+SimpleListNode<K>::SimpleListNode() {
+    Instantiations::Instantiate();
     this->_element = 0;
 }
-SimpleListNode::~SimpleListNode() {
+
+template <typename K>
+SimpleListNode<K>::~SimpleListNode() {
     // TODO Auto-generated destructor stub
 }
+template <typename K>
+void SimpleListNode<K>::setElement(K pElement){this->_element = pElement;}
 
-void SimpleListNode::setElement(int pElement){this->_element = pElement;}
-int* SimpleListNode::getElement(){return &(this->_element);}
+template <typename K>
+K* SimpleListNode<K>::getElement(){return &(this->_element);}
 
-void SimpleListNode::setNext(SimpleListNode *pNextNode){this->_next = pNextNode;}
-SimpleListNode* SimpleListNode::getNext(){return (SimpleListNode*)this->_next;}
+template <typename K>
+void SimpleListNode<K>::setNext(SimpleListNode<K> *pNextNode){this->_next = pNextNode;}
 
-void SimpleListNode::setPrevious(SimpleListNode* pNextNode){this->_next = pNextNode;}
-SimpleListNode* SimpleListNode::getPrevious(){return (SimpleListNode*)this->_previous;}
+template <typename K>
+SimpleListNode<K>* SimpleListNode<K>::getNext(){return (SimpleListNode<K>*)this->_next;}
 
+template <typename K>
+void SimpleListNode<K>::setPrevious(SimpleListNode<K>* pNextNode){this->_next = pNextNode;}
+
+template <typename K>
+SimpleListNode<K>* SimpleListNode<K>::getPrevious(){return (SimpleListNode<K>*)this->_previous;}
 
 

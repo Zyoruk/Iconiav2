@@ -4,11 +4,7 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-    src/main.cpp \
-    src/dataStructures/SimpleList/Node/SimpleListNode.cpp \
-    src/dataStructures/Tree/binarytreenode.cpp \
-    src/dataStructures/Tree/binarytree.cpp \
-    src/dataStructures/interfaceNode.cpp
+    src/main.cpp
 
 HEADERS += \
     src/dataStructures/SimpleList/Node/SimpleListNode.h \

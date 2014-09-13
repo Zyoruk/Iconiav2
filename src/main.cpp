@@ -6,21 +6,21 @@ using namespace std;
 #include "src/dataStructures/Tree/binarytree.h"
 int main()
 {
-    SimpleListNode* node = new SimpleListNode();
+    SimpleListNode<int>* node = new SimpleListNode<int>();
     node->setElement(98);
     cout << *(node->getElement()) << "\n";
 
-    BinaryTreeNode* node2 = new BinaryTreeNode();
+    BinaryTreeNode<int>* node2 = new BinaryTreeNode<int>();
     node2->setElement(898);
     cout << *(node2->getElement()) << "\n";
 
-    BinaryTreeNode* rightNode = new BinaryTreeNode();
+    BinaryTreeNode<int>* rightNode = new BinaryTreeNode<int>();
     rightNode->setElement(76);
     node2->setRight(rightNode);
     cout << *(node2->getRight()->getElement()) << "\n";
 
     cout << "Test tree\n";
-    BinaryTree* newTree = new BinaryTree();
+    BinaryTree<int>* newTree = new BinaryTree<int>();
     cout <<"Adding  [ 50 , 48 , 51 , 47 , 60 , 99 , 0 98 ] ...\n...\n";
     newTree->add(50);
     newTree->add(48);

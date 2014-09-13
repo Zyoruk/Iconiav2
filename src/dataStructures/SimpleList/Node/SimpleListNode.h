@@ -62,7 +62,6 @@ SimpleListNode<K>::SimpleListNode() {
 
 template <typename K>
 SimpleListNode<K>::~SimpleListNode() {
-    // TODO Auto-generated destructor stub
 }
 template <typename K>
 void SimpleListNode<K>::setElement(K pElement){this->_element = pElement;}

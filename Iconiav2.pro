@@ -5,7 +5,8 @@ CONFIG -= qt
 
 SOURCES += \
     src/main.cpp \
-    src/JSON/jsonparser.cpp
+    src/JSON/jsonparser.cpp \
+    src/dataStructures/geometricFiguresKnowledge/geometricFigure/geometricfigure.cpp
 
 HEADERS += \
     src/dataStructures/SimpleList/Node/SimpleListNode.h \

@@ -15,7 +15,8 @@ HEADERS += \
     src/dataStructures/SimpleList/SimpleList.h \
     src/constants/constants.h \
     src/JSON/jsonparser.h \
-    src/dataStructures/geometricFiguresKnowledge/geometricFigure/geometricfigure.h
+    src/dataStructures/geometricFiguresKnowledge/geometricFigure/geometricfigure.h \
+    src/dataStructures/geometricFiguresKnowledge/geometricFiguresTree.h
 
 OTHER_FILES += \
     database/knowledge.txt

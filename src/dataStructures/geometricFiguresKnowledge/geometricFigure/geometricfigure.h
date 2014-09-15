@@ -5,50 +5,49 @@
 #include "src/dataStructures/SimpleList/SimpleList.h"
 
 using namespace std;
-template <typename K>
-class GeometricFigure : public BinaryTreeNode<K>
+class GeometricFigure : public BinaryTreeNode<short>
 {
 public:
     GeometricFigure();
-    GeometricFigure(short pAngles, string pID ,SimpleList<GeometricFigure<short> >* pSL);
+    GeometricFigure(short pAngles, string pID ,SimpleList<GeometricFigure>* pSL);
     bool setFigureID(string pfigureID);
     bool setFigureQtyAngles(short pQtyAngles);
-    bool setStickToFiguresList(SimpleList<GeometricFigure<short> > * pStickToFiguresList);
+    bool setStickToFiguresList(SimpleList<GeometricFigure> * pStickToFiguresList);
     string getFigureID();
     unsigned short getFigureQtyAngles();
-    SimpleList<GeometricFigure<short> >* getStickToFiguresList();
+    SimpleList<GeometricFigure>* getStickToFiguresList();
 private:
     string _figureID;
     unsigned short _figureQtyAngles;
-    SimpleList<GeometricFigure<short> >* _stickToFiguresList;
+    SimpleList<GeometricFigure >* _stickToFiguresList;
 };
 
-template <typename K>
-GeometricFigure <K>::GeometricFigure()
+
+GeometricFigure ::GeometricFigure()
 {
     this->_figureQtyAngles = this->_element;
     this->_figureID = "" ;
-    this->_stickToFiguresList = new SimpleList<GeometricFigure<int> >();
+    this->_stickToFiguresList = new SimpleList<GeometricFigure>();
 }
 
-template <typename K>
-GeometricFigure<K>::GeometricFigure(short pAngles, string pID ,SimpleList<GeometricFigure<short> >* pSL){
+
+GeometricFigure::GeometricFigure(short pAngles, string pID ,SimpleList<GeometricFigure>* pSL){
     this->_figureQtyAngles = pAngles;
     this->_figureID = pID;
     this->_stickToFiguresList = pSL;
 }
 
-template <typename K >
-string GeometricFigure <K>::getFigureID(){return this->_figureID;}
 
-template <typename K>
-unsigned short GeometricFigure <K>::getFigureQtyAngles(){return this->_figureQtyAngles;}
+string GeometricFigure ::getFigureID(){return this->_figureID;}
 
-template <typename K>
-SimpleList<GeometricFigure<short> >* GeometricFigure <K>::getStickToFiguresList(){return this->_stickToFiguresList;}
 
-template <typename K >
-bool GeometricFigure<K>::setFigureID(string pfigureID){
+unsigned short GeometricFigure ::getFigureQtyAngles(){return this->_figureQtyAngles;}
+
+
+SimpleList<GeometricFigure>* GeometricFigure::getStickToFiguresList(){return this->_stickToFiguresList;}
+
+
+bool GeometricFigure::setFigureID(string pfigureID){
     if (this->getFigureID() != ""){
         return false;
     }
@@ -56,17 +55,17 @@ bool GeometricFigure<K>::setFigureID(string pfigureID){
     return true;
 }
 
-template <typename K >
-bool GeometricFigure<K>::setFigureQtyAngles(short pQtyAngles){
-    if (this->_figureQtyAngles() != 0){
+
+bool GeometricFigure::setFigureQtyAngles(short pQtyAngles){
+    if (this->_figureQtyAngles != 0){
         return false;
     }
     this->_figureQtyAngles = pQtyAngles;
     return true;
 }
 
-template <typename K >
-bool GeometricFigure<K>::setStickToFiguresList(SimpleList<GeometricFigure<short> >* pStickToFiguresList){
+
+bool GeometricFigure::setStickToFiguresList(SimpleList<GeometricFigure>* pStickToFiguresList){
     if (this->_stickToFiguresList != 0){
         return false;
     }

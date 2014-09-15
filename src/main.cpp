@@ -3,9 +3,10 @@ using namespace std;
 int main()
 {
     string ID = "square";
-    SimpleList<GeometricFigure<short> >* tmp = new SimpleList<GeometricFigure<short> >();
+    SimpleList<GeometricFigure>* tmp = new SimpleList<GeometricFigure>();
 
-    GeometricFigure<int> * test  = new GeometricFigure <int> ((short)4 , ID, tmp);
+    GeometricFigure* test  = new GeometricFigure((short)4 , ID, tmp);
+
     return 0;
 }
 

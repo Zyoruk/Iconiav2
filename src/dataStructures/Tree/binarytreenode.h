@@ -1,6 +1,7 @@
 ﻿#ifndef BINARYTREENODE_H
 #define BINARYTREENODE_H
 #include "src/dataStructures/interfaceNode.h"
+#include "cstddef"
 template <typename K>
 class BinaryTreeNode :public interfaceNode<K>
 {

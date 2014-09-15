@@ -1,0 +1,2 @@
+{"ID" : "line", "angles" : 1, "stickToFigures" : ["linea", "square", "triangle"]}
+{"ID" : "triangle" , "angles" : 3, "stickToFigures" : ["square", "triangle" ,"rectangle"]}

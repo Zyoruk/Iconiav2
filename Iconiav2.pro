@@ -10,7 +10,7 @@ SOURCES += \
     src/dataStructures/geometricFiguresKnowledge/geometricFigure/geometricfigure.cpp \
     src/genetico/genetico.cpp \
     src/genetico/mutatron.cpp \
-    src/JSON/jsonparser.cpp \
+    src/JSON/jsonparser.cpp
 
 HEADERS += \
     src/dataStructures/SimpleList/Node/SimpleListNode.h \
@@ -27,7 +27,8 @@ HEADERS += \
     src/genetico/mutatron.ḥ \
 OTHER_FILES += \
     src/genetico/bitacora temporal josa \
-    src/genetico/bitacora temporal josa
+    src/genetico/bitacora temporal josa \
+    src/dataStructures/Graph/graph.h
 OTHER_FILES += \
     database/knowledge.txt \
 

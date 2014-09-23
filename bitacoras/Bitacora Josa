@@ -1,0 +1,25 @@
+6/Sept
+
+Tuvimos la primer reunion de equipo, aclaramos la solucion al problema y repartimos tareas, quedó todo aclarado con Leonardo sobre el uso del Git, Lucidchart. Desarrollé la mayor parte del código para mutar a los individuos, "mutatron" y el pseudo-código para la clase "genetico".
+
+8/Sept (L)
+
+Concegui el correo de estudiante para activar Lucichart. Finalicé el mutatron, pero no he podido probarlo y no tengo las estructuras de datos para el código genético.
+
+9/Sept
+
+Creo el código para la clase "genetico" a la que antes le habia hecho el pseudo-código. Tuvimos una reunion mediante GH en la que revisamos principalmente problemas que teniamos con el git (Leonardo y yo).
+
+Faltaban permisos para hacer push en el git pero Luis lo arregló al final del día.
+
+10/Sept
+
+Hago un clone del proyecto que ahora tiene las estructuras de datos y desarrollo más métodos en "genetico" y el header de "genetico" .
+
+12/Sept
+
+Arreglo Mutatron y finalizo Genetico, tambien se llenan los headers de ambas.
+
+
+
+"I love to talk to myself, i find the other person very intelectual" -Rotterdam 2015

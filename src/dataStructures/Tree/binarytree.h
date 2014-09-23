@@ -22,7 +22,6 @@ private:
     BinaryTreeNode<K>* lowestHighest (BinaryTreeNode<K>* pNode);
     BinaryTreeNode<K>* highestLowest (BinaryTreeNode<K>* pNode);
 };
-
 template <typename K>
 BinaryTree<K>::BinaryTree()
 {

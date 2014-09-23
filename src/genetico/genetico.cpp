@@ -1,4 +1,5 @@
 #include "genetico.h"
+#include "src/dataStructures/SimpleList/Node/SimpleListNode.h"
 #include <iostream>
 #include <stdlib.h>
 #include <string.h>

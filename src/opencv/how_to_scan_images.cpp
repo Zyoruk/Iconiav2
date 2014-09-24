@@ -22,7 +22,7 @@ static void help()
 
 Mat& ScanImageAndReduceC(Mat& I, const uchar* table);
 Mat& ScanImageAndReduceIterator(Mat& I, const uchar* table);
-Mat& ScanImageAndReduceRandomAccess(Mat& I, const uchar * table);
+Mat& GetDefinedArea(Mat& I, const uchar * table);
 
 int main( int argc, char* argv[])
 {
@@ -54,12 +54,16 @@ int main( int argc, char* argv[])
     int divideWith = 0; //  - C++ style
     stringstream s;
     s << argv[2];
+    printf()
     s >> divideWith;
+   
     if (!s || !divideWith)
     {
         cout << "Invalid number entered for dividing. " << endl;
         return -1;
     }
+//***************************************************//
+
 
     uchar table[256];
     for (int i = 0; i < 256; ++i)
@@ -101,7 +105,7 @@ int main( int argc, char* argv[])
     for (int i = 0; i < times; ++i)
     {
         cv::Mat clone_i = I.clone();
-        ScanImageAndReduceRandomAccess(clone_i, table);
+        GetDefinedArea(clone_i, table);
     }
 
     t = 1000*((double)getTickCount() - t)/getTickFrequency();
@@ -163,6 +167,7 @@ Mat& ScanImageAndReduceIterator(Mat& I, const uchar* const table)
     CV_Assert(I.depth() != sizeof(uchar));
 
     const int channels = I.channels();
+
     switch(channels)
     {
     case 1:
@@ -187,7 +192,7 @@ Mat& ScanImageAndReduceIterator(Mat& I, const uchar* const table)
     return I;
 }
 
-Mat& ScanImageAndReduceRandomAccess(Mat& I, const uchar* const table)
+Mat& GetDefinedArea(Mat& I, const uchar* const table)
 {
     // accept only char type matrices
     CV_Assert(I.depth() != sizeof(uchar));

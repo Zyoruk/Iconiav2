@@ -16,14 +16,14 @@ SOURCES += \
 
 HEADERS += \
     src/dataStructures/SimpleList/Node/SimpleListNode.h \
+    src/dataStructures/SimpleList/SimpleList.h \
     src/dataStructures/Tree/binarytreenode.h \
     src/dataStructures/Tree/binarytree.h \
     src/dataStructures/interfaceNode.h \
-    src/constants/constants.h \
     src/dataStructures/geometricFiguresKnowledge/geometricFiguresTree.h \
     src/dataStructures/geometricFiguresKnowledge/geometricFigure/geometricfigure.h \
     src/dataStructures/Graph/graphNode/graphnode.h \
-    src/dataStructures/SimpleList/SimpleList.h \
+    src/constants/constants.h \
     src/genetico/test.h \
     src/genetico/genetico.h \
     src/genetico/mutatron.ḥ \

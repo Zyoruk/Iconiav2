@@ -10,7 +10,9 @@ SOURCES += \
     src/dataStructures/geometricFiguresKnowledge/geometricFigure/geometricfigure.cpp \
     src/genetico/genetico.cpp \
     src/genetico/mutatron.cpp \
-    src/JSON/jsonparser.cpp
+    src/JSON/jsonparser.cpp \
+    src/opencv/how_to_scan_images.cpp \
+    src/opencv/loadImage.cpp
 
 HEADERS += \
     src/dataStructures/SimpleList/Node/SimpleListNode.h \

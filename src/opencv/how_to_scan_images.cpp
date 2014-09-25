@@ -54,8 +54,9 @@ int main( int argc, char* argv[])
     int divideWith = 0; //  - C++ style
     stringstream s;
     s << argv[2];
-    printf()
+    printf(s);
     s >> divideWith;
+    printf(divideWith);
    
     if (!s || !divideWith)
     {

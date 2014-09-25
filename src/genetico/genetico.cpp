@@ -1,31 +1,27 @@
-#include "genetico.h"
 #include <iostream>
 #include <stdlib.h>
 #include <string.h>
+#include"src/dataStructures/SimpleList/Node/SimpleListNode.h"
 using namespace std;
 
-Genetico::Genetico()
-{
-    this->_root = new Genetico();
-}
 
- /*
-  *   int Individuo = 120 (0/225)
-  *   int Poblacion = 100 (1/250)
-  *
-  */
+int Individuo = 120;
+int[100] Poblacion;
+
+int conseguirFitness () {
+  return 12658;
+  }
 
 // Valor de fitness (obtenido de open cv)
-// ListaSimple Poblacion [100]
-// ListaSimple nuevaGeneracion [100]
-
-
+// ListaSimple Poblacion [100];
+// ListaSimple nuevaGeneracion [100];
 
 /* Crea un individuo al azar
  *
+ *
  * return int con el valor del individuo
  */
-int Genetico::crearIndividuo () {
+int crearIndividuo () {
   int RandomInd = rand()%225;     //numero al azar entre 0 y 225
   return RandomInd;
   }
@@ -33,15 +29,40 @@ int Genetico::crearIndividuo () {
 /* crea un población al azar
  *
  *
+ *
  */
- void Genetico::crearPoblacion (int Densidad) {
+ void crearPoblacion (int Densidad) {
      for (int i = 0; i<Densidad; i++) {
          Poblacion[i]=crearIndividuo();
      }
 }
 
 
+
 // /////////////////////////////////////////////////////////////////////// //
+
+
+
+ /*    Escoge a un padre basado en una posibilidad que aumenta entre mejor sea su fitness
+  *
+  *
+  *
+  */
+ int escogerPadre () {
+
+     for (int i = 0; i<Poblacion::getLenght(); i++) {
+         int FitnessTotal =+ Poblacion[i]+conceguirFitness();   //Manejamos el fitness de manera diferente
+     }
+
+     int RandPadre = rand()%FitnessTotal;
+
+     for (int i = 0; i<sizeof(Poblacion); i++) {
+         int FitnessTotal =+ Poblacion[i];
+         if (RandPadre <= FitnessTotal) {
+             return i;
+         }
+     }
+ }
 
 
 /* Este metodo toma dos elementos al azar de la lista, crea dos nuevos y los compara,
@@ -51,48 +72,39 @@ int Genetico::crearIndividuo () {
  *
  *
  */
-void Genetico::Reproducir () {
-    int iPadre = rand()%250;
-    int iMadre = rand()%250;
+void Reproducir () {
+    int iPadre = escogerPadre ();
+    int iMadre = escogerPadre ();
 
-    int* Padre = &ListaSimple.getNodo(iPadre);
-    int* Madre = &ListaSimple.getNodo(iMadre);
+    //int Padre = Poblacion.getNodo(iPadre);
+    //int Madre = Poblacion.getNodo(iMadre);
+
+    int Padre = Poblacion[iPadre];
+    int Madre = Poblacion[iMadre];
 
     int iSplit = rand()%30+2;      //para 1 int 2<iSplit<30
     int iMutate = rand()%32;
 
+    int tempPadre = Padre;
+    int tempMadre = Madre;
+    tempPadre = tempPadre<<iSplit;
+    tempMadre = tempMadre>>iSplit;
+    int hijoA = tempMadre^tempPadre;
+
+    int tempPadre = Padre;
+    int tempMadre = Madre;
+    tempPadre = tempPadre>>iSplit;
+    tempMadre = tempMadre<<iSplit;
+    int hijoB = tempMadre^tempPadre;
+
     if (iSplit==iMutate) {
-
-        int* tempPadre = Padre;
-        int* tempMadre = Madre;
-        tempPadre<<iSplit;
-        tempMadre>>iSplit;
-        int* hijoA = tempMadre^tempPadre;
-
-        int* tempPadre = Padre;
-        int* tempMadre = Madre;
-        tempPadre>>iSplit;
-        tempMadre<<iSplit;
-        int* hijoB = tempMadre^tempPadre;
-
+        cout << "mutatron activado" << endl;
         mutatron(hijoA);
-        fitnessTest(*Padre, *Madre, *hojaA, *hijoB);
+        fitnessTest(Padre, Madre, hijoA, hijoB);         //se agregan los dos mejores a nuevaGeneracion
     } else {
-
-        int* tempPadre = Padre;
-        int* tempMadre = Madre;
-        tempPadre<<iSplit;
-        tempMadre>>iSplit;
-        int* hijoA = tempMadre^tempPadre;
-
-        int* tempPadre = Padre;
-        int* tempMadre = Madre;
-        tempPadre>>iSplit;
-        tempMadre<<iSplit;
-        int* hijoB = tempMadre^tempPadre;
-
-        fitnessTest(*Padre, *Madre, *hojaA, *hijoB);
+        fitnessTest(Padre, Madre, hijoA, hijoB);         //se agregan los dos mejores a nuevaGeneracion
     }
+
 }
 
 
@@ -100,19 +112,17 @@ void Genetico::Reproducir () {
  * menor==mejor
  *
  *
- *
  */
-int Genetico::fitnessTest (int* SubjectD) {
-    return abs(conceguirFitness() - *SubjectD);
+int fitnessTest (int SubjectD) {
+    return abs(conceguirFitness() - SubjectD);
 }
 
 /* Toma tres elementos y los compara entre ellos, agrega los mejores dos elementos a nuevaGeneracion
  *
  *
  *
- *
  */
-void Genetico::fitnessTest (int* SubjectA, int* SubjectB, int* SubjectC, int* SubjectD) {
+void fitnessTest (int SubjectA, int SubjectB, int SubjectC, int SubjectD) {
     int A=fitnessTest(SubjectA);
     int B=fitnessTest(SubjectB);
     int C=fitnessTest(SubjectC);
@@ -123,15 +133,15 @@ void Genetico::fitnessTest (int* SubjectA, int* SubjectB, int* SubjectC, int* Su
         }
     } if (B<A) {
         if (B<C || B<D) {
-            SimpleListNodo.add(B);
+            nuevaGeneracion.add(B);
         }
     } if (C<D) {
         if (C<A || C<B) {
-            SimpleListNodo.add(C);
+            nuevaGeneracion.add(C);
         }
     } if (D<C) {
         if (D<A || D<B) {
-            SimpleListNodo.add(D);
+            nuevaGeneracion.add(D);
         }
     }
 }
@@ -139,9 +149,10 @@ void Genetico::fitnessTest (int* SubjectA, int* SubjectB, int* SubjectC, int* Su
 /* agrega los mejores elementos en NuevaGeneracion a Poblacion,
  * ie, cambia las generaciones
  *
+ *
  */
-void Genetico::cambiarGeneraciones (SimpleListNode Poblacion, SimpleListNode nuevaGeneracion) {
-    for (int i = 0; i<sizeof(Poblacion); i++) {
+void cambiarGeneraciones (SimpleListNode Poblacion, SimpleListNode nuevaGeneracion) {
+    for (int i = 0; i<Poblacion::getLenght(); i++) {
         Poblacion[i]=nuevaGeneracion[i];
     }
 }
@@ -151,9 +162,9 @@ void Genetico::cambiarGeneraciones (SimpleListNode Poblacion, SimpleListNode nue
  *
  *
  */
-int Genetico::conseguirMejorIndividuo() {
+int conseguirMejorIndividuo() {
     int Mejor = 0;
-    for (int i = 0; i<sizeof(Poblacion); i++) {
+    for (int i = 0; i<Poblacion::getLenght(); i++) {
         if (Poblacion[i]==0) {
             Mejor = Poblacion[i];
         }
@@ -170,9 +181,10 @@ int Genetico::conseguirMejorIndividuo() {
  *
  *
  */
-int Genetico::start (int Generaciones) {
+int start (int Generaciones) {
     crearPoblacion(50);
     for (int i = 0; i<Generaciones; i++) {
+
         for (int i = 0; i<20; i++) {            //reproducciones por generacion
             Reproducir();
         }
@@ -181,5 +193,14 @@ int Genetico::start (int Generaciones) {
     return conseguirMejorIndividuo();
 }
 
-
-// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// //
+/*   Corre el prorama
+ *
+ */
+int main()
+{
+    int G = 0;
+    cout << "Ingrese la cantidad de generaciones: " << endl;
+    cin >> G >> endl;
+    start (G);
+    return 0;
+}

@@ -6,21 +6,19 @@
 using namespace std;
 
 
-
 /*   Muestra los cromosomas booleanos del elemento dado,
  * se utiliza principalmente para depurar individualmente
  *
  *
  */
-void mostrarCromosomas (int Cromo) {
-    for (int i = 0; i<sizeof(Cromo); i++) {
-
-        Cromo=Cromo<<i;
-        Cromo=Cromo>>sizeof(Cromo);
-        cout << Cromo;               //imprime el valor despues del corrimiento (0 v 1)
-
-    }
-    cout << endl;
+void printBits(unsigned int num)
+{
+   for(int bit=0;bit<(sizeof(unsigned int) * 8); bit++)
+   {
+      printf("%i ", num & 0x01);
+      num = num >> 1;
+   }
+   cout << endl;
 }
 
 
@@ -29,19 +27,17 @@ void mostrarCromosomas (int Cromo) {
  *
  * return vector de bits; el mutageno
  */
-int crearMutageno (int Individuo) {
+unsigned int crearMutageno (unsigned int Individuo) {
 
     srand (time(NULL));
-    int RandomGen = rand() % sizeof(Individuo);
+    unsigned int RandomGen = rand() % sizeof(Individuo)*8+1;
 
-    int Vial = 0;
+    unsigned int Vial = 0;
     Vial = ~Vial;
-    Vial=Vial>>RandomGen;
-    Vial=Vial<<(sizeof(Individuo)-1);
-    Vial=Vial>>(sizeof(Individuo)-RandomGen);      //pone al mutageno en su posicion original
+    Vial=Vial>>31;                                                         //Da problemas convirtiendo sizeof()...
+    Vial=Vial<<RandomGen;
 
-    int Mutante = Individuo^Vial;
-    return Mutante;
+    return Vial;
 }
 
 
@@ -50,8 +46,8 @@ int crearMutageno (int Individuo) {
  *
  * return vector de bits; el individuo mutado
  */
-int mutar (int Individuo, int Mutageno) {
-    int Xperson = Individuo^Mutageno;
+unsigned int mutar (unsigned int Individuo, unsigned int Mutageno) {
+    unsigned int Xperson = Individuo^Mutageno;
     return Xperson;
 }
 
@@ -61,29 +57,19 @@ int mutar (int Individuo, int Mutageno) {
  *
  *
  */
-int mutatron (int Individuo) {
+unsigned int mutatron (unsigned int Individuo) {
 
-    cout<< "El individuo original: "<<endl;
-    mostrarCromosomas(Individuo);
-
-    int Mutageno=crearMutageno(Individuo);
-    cout<< "El mutageno: "<<endl;
-    mostrarCromosomas(Mutageno);
-
-    int Xperson = mutar(Individuo, Mutageno);
-    cout<< "El individuo mutado: "<<endl;
-    mostrarCromosomas(Xperson);
-
+    unsigned int Mutageno=crearMutageno(Individuo);
+    unsigned int Xperson = mutar(Individuo, Mutageno);
     return Xperson;
 }
 
 
-int main()
+int mainMutatron()
 {
-    int paciente;
+    unsigned int paciente;
     cin >> paciente;
-    cout << paciente << endl;
-    mutatron(paciente);
-    return 0;
-}
+    int Mutante = mutatron(paciente);
 
+    return Mutante;
+}

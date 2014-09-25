@@ -5,7 +5,16 @@ CONFIG -= qt
 
 SOURCES += \
     src/main.cpp \
-<<<<<<< HEAD
+<<<<<<< HEAD \
+    src/genetico/genetico.cpp \
+    src/genetico/mutatron.cpp \
+    src/JSON/jsonparser.cpp \
+    src/dataStructures/interfaceNode.cpp \
+    src/dataStructures/Tree/binarytree.cpp \
+    src/dataStructures/Tree/binarytreenode.cpp \
+    src/dataStructures/SimpleList/Node/SimpleListNode.cpp \
+    src/dataStructures/geometricFiguresKnowledge/geometricFigure/geometricfigure.cpp \
+    src/constants/constants.cpp
     src/dataStructures/Node.cpp \
     src/dataStructures/SimpleList/Node/SimpleListNode.cpp \
     src/dataStructures/Tree/binarytreenode.cpp \
@@ -23,7 +32,15 @@ HEADERS += \
     src/dataStructures/SimpleList/Node/SimpleListNode.h \
     src/dataStructures/Tree/binarytreenode.h \
     src/dataStructures/Tree/binarytree.h \
-<<<<<<< HEAD
+<<<<<<< HEAD \
+    src/genetico/genetico.h \
+    src/genetico/mutatron.h \
+    src/JSON/jsonparser.h \
+    src/dataStructures/interfaceNode.h \
+    src/dataStructures/SimpleList/SimpleList.h \
+    src/dataStructures/geometricFiguresKnowledge/geometricFiguresTree.h \
+    src/dataStructures/geometricFiguresKnowledge/geometricFigure/geometricfigure.h \
+    src/constants/constants.h
     src/test.h \
     src/genetico/test.h \
     src/test2.h \

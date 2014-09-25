@@ -28,5 +28,3 @@ void SimpleListNode<K>::setPrevious(SimpleListNode<K>* pNextNode){this->_next = 
 
 template <typename K>
 SimpleListNode<K>* SimpleListNode<K>::getPrevious(){return (SimpleListNode<K>*)this->_previous;}
-
-

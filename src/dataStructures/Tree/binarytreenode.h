@@ -11,22 +11,18 @@ public:
     void setElement(K pElement);
     void setRight(BinaryTreeNode* pRight);
     void setLeft(BinaryTreeNode* pLeft);
-    void setFather(BinaryTreeNode* pFather);
     BinaryTreeNode* getLeft();
     BinaryTreeNode* getRight();
-    BinaryTreeNode* getFather();
 private:
     interfaceNode<K>* _right;
     interfaceNode<K>* _left;
-    interfaceNode<K>* _father;
 };
 template <typename K>
 BinaryTreeNode<K>::BinaryTreeNode()
 {
     this->_element = 0;
-    this->_left = NULL;
-    this->_right = NULL;
-    this->_father = NULL;
+    this->_left = 0;
+    this->_right = 0;
 }
 
 template <typename K>
@@ -50,11 +46,6 @@ BinaryTreeNode<K>* BinaryTreeNode<K>::getRight(){
 }
 
 template <typename K>
-BinaryTreeNode<K>* BinaryTreeNode<K>::getFather(){
-    return (BinaryTreeNode<K>*)this->_father;
-}
-
-template <typename K>
 void BinaryTreeNode<K>::setLeft(BinaryTreeNode<K> *pLeft){
     this->_left = pLeft;
 }
@@ -62,11 +53,6 @@ void BinaryTreeNode<K>::setLeft(BinaryTreeNode<K> *pLeft){
 template <typename K>
 void BinaryTreeNode<K>::setRight(BinaryTreeNode<K> *pRight){
     this->_right = pRight;
-}
-
-template <typename K>
-void BinaryTreeNode<K>::setFather(BinaryTreeNode* pFather){
-    this->_father = pFather;
 }
 
 

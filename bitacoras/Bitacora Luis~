@@ -29,14 +29,8 @@ Bitácora.
 13 Septiembre	- Implementado generics
 	     	- Arbol y Lista simple listos.
 	     	- Le hace falta autobalancearse al arbol.
-
 Apartir del 13 de septiembre tuve que reestructurarlo que estaba haciendo,es decir, volver a pensar las cosas pero esta vezcon un grafo
 Dentro de este periodo de tiempo, he tenido problemas con la utilizacion de bibliotecas relacionadas con JSON en QT. Además, estuve pensando
 en como hacer el grafo. A la hora de crear el nodo de un grafo y de abstraer las conecciones como un objeto, estaba teniendo como un tipo
 de error ciclico. Es decir, algo estaba mal a la hora de unir conecciones congrafos, un error me llevaba a otro y este al mismo,y no veia manera
 de solucionarlo por lo uqe borre todo y lo volvi a hacer. Esta vez, no creé una clase de "Coneccion".
-
-24 Septiembre - Me siento a aclarar lo que es el grafo (Luego del examen de fisica).
-	      - Definidas las metas a corto plazo.
-	      - La idea es terminar hoy la parte light del grafo y mañana comenzar con lo que es backtracking.
-		Este me permitira el movimiento entre nodos, si es posible.

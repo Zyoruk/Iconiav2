@@ -5,7 +5,7 @@
 #include "src/dataStructures/SimpleList/SimpleList.h"
 
 using namespace std;
-class GeometricFigure : public BinaryTreeNode<short>
+class GeometricFigure
 {
 public:
     GeometricFigure();
@@ -16,7 +16,19 @@ public:
     string getFigureID();
     unsigned short getFigureQtyAngles();
     SimpleList<GeometricFigure>* getStickToFiguresList();
+
+    short* getElement();
+    void setElement(short pElement);
+    void setRight(GeometricFigure* pRight);
+    void setLeft(GeometricFigure* pLeft);
+    void setFather(GeometricFigure* pFather);
+    GeometricFigure* getLeft();
+    GeometricFigure* getRight();
+    GeometricFigure* getFather();
 private:
+    short _element;
+    GeometricFigure* _right;
+    GeometricFigure* _left;
     string _figureID;
     unsigned short _figureQtyAngles;
     SimpleList<GeometricFigure >* _stickToFiguresList;

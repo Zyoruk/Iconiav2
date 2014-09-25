@@ -1,39 +1,17 @@
-#ifndef BINARYTREE_H
-#define BINARYTREE_H
-#include "binarytreenode.h"
-template <typename K>
-class BinaryTree
-{
-public:
-    BinaryTree();
-    unsigned int getLenght();
-    bool add(K pElement);
-    bool remove(K pElement);
-    bool ifExists(K pElement);
-    BinaryTreeNode<K>* search(K pElement);
+#include <src/dataStructures/geometricFiguresKnowledge/geometricFiguresTree.h>
+#include <src/dataStructures/geometricFiguresKnowledge/geometricFigure/geometricfigure.h>
 
-private:
-    unsigned int lenght;
-    BinaryTreeNode<K>* _root;
-
-    bool addAux(K pElement , BinaryTreeNode<K>* pLeaf);
-    bool removeAux ( K pElement , BinaryTreeNode<K>* pLeaf);
-    BinaryTreeNode<K>* searchAux(K pElement, BinaryTreeNode<K>* pLeaf);
-    BinaryTreeNode<K>* lowestHighest (BinaryTreeNode<K>* pNode);
-    BinaryTreeNode<K>* highestLowest (BinaryTreeNode<K>* pNode);
-};
-template <typename K>
-BinaryTree<K>::BinaryTree()
+GeometricFiguresTree::GeometricFiguresTree()
 {
-    this->_root = new BinaryTreeNode<K>();
+    this->_root = new GeometricFigure();
     this->lenght = 0;
 }
-template <typename K>
-unsigned int BinaryTree<K>::getLenght(){
+
+unsigned int GeometricFiguresTree::getLenght(){
     return this->lenght;
 }
-template <typename K>
-bool BinaryTree <K>::add(K pElement)
+
+bool GeometricFiguresTree::add(short pElement)
 {
     if(*this->_root->getElement() == 0){
         this->_root->setElement(pElement);
@@ -43,14 +21,13 @@ bool BinaryTree <K>::add(K pElement)
         return addAux(pElement , this->_root);
     }
 }
-template <typename K>
-bool BinaryTree<K>::addAux(K pElement , BinaryTreeNode<K>* pNode){
+
+bool GeometricFiguresTree::addAux(short pElement , GeometricFigure* pNode){
     if ( pElement < (*pNode->getElement())){
         if (pNode->getLeft() == NULL){
-            BinaryTreeNode<K>* leftToAdd = new BinaryTreeNode<K>();
+            GeometricFigure* leftToAdd = new GeometricFigure();
             leftToAdd->setElement(pElement);
             pNode->setLeft(leftToAdd);
-            leftToAdd->setFather(pNode);
         this->lenght += 1;
             return true;
         }else{
@@ -58,10 +35,9 @@ bool BinaryTree<K>::addAux(K pElement , BinaryTreeNode<K>* pNode){
         }
     }else if (pElement > (*pNode->getElement())){
         if (pNode->getRight() == NULL){
-            BinaryTreeNode<K>* rightToAdd = new BinaryTreeNode<K>();
+            GeometricFigure* rightToAdd = new GeometricFigure();
             rightToAdd->setElement(pElement);
             pNode->setRight(rightToAdd);
-            rightToAdd->setFather(pNode);
         this->lenght += 1;
             return true;
         }else{
@@ -71,8 +47,8 @@ bool BinaryTree<K>::addAux(K pElement , BinaryTreeNode<K>* pNode){
         return false;
     }
 }
-template <typename K>
-bool BinaryTree<K>::remove(K pElement){
+
+bool GeometricFiguresTree::remove(short pElement){
     if ( this->lenght == 0){
         std::cout << "Empty Tree";
         return false;
@@ -80,9 +56,9 @@ bool BinaryTree<K>::remove(K pElement){
         return removeAux(pElement , this->_root);
     }
 }
-template <typename K>
-bool BinaryTree<K>::removeAux (K pElement , BinaryTreeNode<K>* pCurrentNode){
-    BinaryTreeNode<K>* tmp = this->searchAux(pElement , pCurrentNode);
+
+bool GeometricFiguresTree::removeAux (short pElement , GeometricFigure* pCurrentNode){
+    GeometricFigure* tmp = this->searchAux(pElement , pCurrentNode);
     if (tmp == 0){
         return false;
     }else{
@@ -110,16 +86,16 @@ bool BinaryTree<K>::removeAux (K pElement , BinaryTreeNode<K>* pCurrentNode){
         }
     }
 }
-template <typename K>
-BinaryTreeNode<K>* BinaryTree<K>::search(K pElement){
+
+GeometricFigure* GeometricFiguresTree::search(short pElement){
     if (this->lenght == 0){
         return 0;
     }else{
         return searchAux(pElement , this->_root);
     }
 }
-template <typename K>
-BinaryTreeNode<K>* BinaryTree<K>::searchAux(K pElement, BinaryTreeNode<K>* pNode){
+
+GeometricFigure* GeometricFiguresTree::searchAux(short pElement, GeometricFigure* pNode){
     if (*pNode->getElement() == pElement){
         return pNode;
     }else if (*pNode->getElement() < pElement){
@@ -134,8 +110,8 @@ BinaryTreeNode<K>* BinaryTree<K>::searchAux(K pElement, BinaryTreeNode<K>* pNode
         return searchAux(pElement, pNode->getLeft());
     }
 }
-template <typename K>
-bool BinaryTree<K>::ifExists(K pElement){
+
+bool GeometricFiguresTree::ifExists(short pElement){
     if (this->search(pElement) == 0){
         return false;
     }
@@ -143,22 +119,17 @@ bool BinaryTree<K>::ifExists(K pElement){
    return pElement == *(this->search(pElement)->getElement());
 }
 
-template <typename K>
-BinaryTreeNode<K>* BinaryTree<K>::highestLowest(BinaryTreeNode<K> *pNode){
+GeometricFigure* GeometricFiguresTree::highestLowest(GeometricFigure *pNode){
     if (pNode->getLeft() == 0){
         return pNode;
     }else{
         return lowestHighest(pNode->getLeft());
     }
 }
-template <typename K>
-BinaryTreeNode<K>* BinaryTree<K>::lowestHighest(BinaryTreeNode<K>* pNode){
+GeometricFigure* GeometricFiguresTree::lowestHighest(GeometricFigure* pNode){
     if (pNode->getRight() == NULL){
         return pNode;
     }else{
         return highestLowest(pNode->getRight());
     }
 }
-
-
-#endif // BINARYTREE_H

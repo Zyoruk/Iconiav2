@@ -1,13 +1,17 @@
 #include <src/dataStructures/geometricFiguresKnowledge/geometricFigure/geometricfigure.h>
 GeometricFigure ::GeometricFigure()
 {
-    this->_figureQtyAngles = this->_element;
+    this->_element=0;
+    this->_figureQtyAngles = 0;
     this->_figureID = "" ;
     this->_stickToFiguresList = new SimpleList<GeometricFigure>();
+    this->_left = 0;
+    this->_right = 0;
 }
 
 
 GeometricFigure::GeometricFigure(short pAngles, string pID ,SimpleList<GeometricFigure>* pSL){
+    this->_element = pAngles;
     this->_figureQtyAngles = pAngles;
     this->_figureID = pID;
     this->_stickToFiguresList = pSL;
@@ -47,4 +51,26 @@ bool GeometricFigure::setStickToFiguresList(SimpleList<GeometricFigure>* pStickT
     }
     this->_stickToFiguresList = pStickToFiguresList;
     return true;
+}
+short* GeometricFigure::getElement(){
+    return &this->_element;
+}
+
+void GeometricFigure::setElement(short pElement){
+    this->_element = pElement;
+}
+
+GeometricFigure* GeometricFigure::getLeft(){
+    return (GeometricFigure*)this->_left;
+}
+GeometricFigure* GeometricFigure::getRight(){
+    return (GeometricFigure*)this->_right;
+}
+
+void GeometricFigure::setLeft(GeometricFigure* pLeft){
+    this->_left = pLeft;
+}
+
+void GeometricFigure::setRight(GeometricFigure* pRight){
+    this->_right = pRight;
 }

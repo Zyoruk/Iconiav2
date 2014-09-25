@@ -24,8 +24,13 @@ Bitácora.
 10 Septiembre	- Solucionado Add method del arbol binario.
 	     	- Trabajando ahora con remove.
 
-12 Septiembre	-Arbol binario ya es funcional , le hace falta la funcion de autobalanceo e implementacion de templates.
+12 Septiembre	- Arbol binario ya es funcional , le hace falta la funcion de autobalanceo e implementacion de templates.
 
 13 Septiembre	- Implementado generics
 	     	- Arbol y Lista simple listos.
 	     	- Le hace falta autobalancearse al arbol.
+Apartir del 13 de septiembre tuve que reestructurarlo que estaba haciendo,es decir, volver a pensar las cosas pero esta vezcon un grafo
+Dentro de este periodo de tiempo, he tenido problemas con la utilizacion de bibliotecas relacionadas con JSON en QT. Además, estuve pensando
+en como hacer el grafo. A la hora de crear el nodo de un grafo y de abstraer las conecciones como un objeto, estaba teniendo como un tipo
+de error ciclico. Es decir, algo estaba mal a la hora de unir conecciones congrafos, un error me llevaba a otro y este al mismo,y no veia manera
+de solucionarlo por lo uqe borre todo y lo volvi a hacer. Esta vez, no creé una clase de "Coneccion".

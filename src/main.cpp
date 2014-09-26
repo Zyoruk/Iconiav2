@@ -3,6 +3,9 @@ using namespace std;
 int main()
 {
     Graph<int>* temp = new Graph<int>();
+    temp->add(98);
+    temp->add(100);
+    temp->connect(98,100);
     return 0;
 }
 

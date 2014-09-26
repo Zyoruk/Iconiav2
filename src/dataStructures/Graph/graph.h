@@ -2,19 +2,57 @@
 #define GRAPH_H
 #include "src/dataStructures/Graph/graphNode/graphnode.h"
 #include "src/dataStructures/SimpleList/SimpleList.h"
+#include "iostream"
 
 template <typename K>
 
 class Graph{
 public:
     Graph();
+    /*!
+     * \brief add is going to create a new node to the graph.
+     * \param pNode which is the element of the node we want to add.
+     * \return boolean depending if it was able to add.
+     */
     bool add (K pNode);
+    /*!
+     * \brief remove is going to delete a node that contains the element
+     * \param pNode is the element of the node we want to remove.
+     * \return boolean if it was able.
+     */
     bool remove(K pNode);
+    /*!
+     * \brief exists searches for  the node containing the element
+     * \param pNode is the element contained
+     * \return boolean if it was able
+     */
     bool exists(K pNode);
+    /*!
+     * \brief connect will connect the two nodes that contains A and B.
+     * \param pNodeA element of the node.
+     * \param pNodeB element of the node.
+     * \return boolean if it was able to connect, the only way it wouldn't is if the connection already exists. Or that one node doesn't exist.
+     */
     bool connect(K pNodeA , K pNodeB);
+    /*!
+     * \brief areConnected search if the two nodes are connected.
+     * \param pNodeA element of the node.
+     * \param pNodeB element of the node.
+     * \return boolean if the nodes were connected.
+     */
     bool areConnected(K pNodeA, K pNodeB);
+    /*!
+     * \brief describe will print every node of the graph.
+     */
+    void describe();
 private:
+    /*!
+     * \brief _GraphNodes simple linked list containing the pointers to the nodes.
+     */
     SimpleList<GraphNode<K>* >* _GraphNodes;
+    /*!
+     * \brief _elements simple linked list containing only the elements of every node.
+     */
     SimpleList<K>* _elements;
 };
 template <typename K>
@@ -65,16 +103,18 @@ bool Graph<K>::connect(K pNodeA, K pNodeB){
 
 template <typename K>
 bool Graph<K>::exists(K pNode){
+    return this->_elements->ifExists(pNode);
+}
+
+template< typename K>
+void Graph<K>::describe(){
     SimpleListNode<K>* temp = this->_elements->getHead();
-    unsigned int i = 0;
-    while(i != this->_elements->getLenght()-1){
-        if (*temp->getElement()== pNode){
-            return true;
-        }else{
-            temp = temp->getNext();
-        }
+    int i = 0;
+    while (i!=this->_elements->getLenght()){
+        cout << *temp->getElement()<< " ";
+        temp = temp->getNext();
+        i++;
     }
-    return false;
 }
 
 #endif // GRAPH_H

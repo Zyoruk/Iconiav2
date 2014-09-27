@@ -5,10 +5,9 @@ int main()
 {
     Graph<int>* temp = new Graph<int>();
     temp->add(98);
-    temp->add(100);
-    temp->connect(98,100);
-    temp->remove(100);
-    cout << temp->exists(98);
+    temp->add(198);
+    temp->connect(98,198);
+    temp->moveAB(98,198);
     return 0;
 }
 

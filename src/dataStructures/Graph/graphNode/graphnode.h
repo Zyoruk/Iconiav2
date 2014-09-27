@@ -2,10 +2,12 @@
 #define GRAPHNODE_H
 #include "src/dataStructures/interfaceNode.h"
 #include "src/dataStructures/SimpleList/SimpleList.h"
+
 template <typename K>
 /*!
  * \brief The GraphNode class
- */
+*/
+
 class GraphNode: public interfaceNode<K>{
 public:
     GraphNode();
@@ -27,6 +29,8 @@ public:
      * \return
      */
     bool connectTo(GraphNode* pNodeTo);
+
+    SimpleList<GraphNode*>* getConnections();
 private:
     /*!
      * \brief _connectedTo is the list that contains all the nodes this is connected to.
@@ -49,6 +53,10 @@ bool GraphNode<K>::connectTo(GraphNode *pNodeTo){
 template <typename K>
 bool GraphNode<K>::removeConnectionTo(GraphNode *pNodeTo){
     return this->_connectedTo->remove(pNodeTo);
+}
+template <typename K>
+SimpleList<GraphNode<K>* >* GraphNode<K>::getConnections(){
+    return this->_connectedTo;
 }
 
 #endif // GRAPHNODE_H

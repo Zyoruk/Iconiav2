@@ -18,8 +18,8 @@ public:
     SimpleListNode<K>* getHead();
     SimpleListNode<K>* getTail();
     SimpleListNode<K>* elementAt(int pIndex);
-
     int indexOf(K pElement);
+    bool deleteHead();
 
 private:
     unsigned int _lenght;
@@ -244,6 +244,20 @@ bool SimpleList<K>::clear(){
         this->_tail = 0;
         this->_head = 0;
     }
+}
+template <typename K>
+bool SimpleList<K>::deleteHead(){
+    if ( this->getLenght() == 0){
+        return true;
+    }else if ( this->getLenght() == 1){
+        this->_head = 0;
+        this->_tail = 0;
+        this->_lenght --;
+    }
+    SimpleListNode<K>* temp = this->_head->getNext();
+    this->head = 0;
+    this->head = temp;
+    this->_lenght--;
 }
 
 #endif // SIMPLELIST_H

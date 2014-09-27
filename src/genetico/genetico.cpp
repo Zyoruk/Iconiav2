@@ -1,14 +1,15 @@
 #include <iostream>
 #include <stdlib.h>
 #include <string.h>
-//#include"src/dataStructures/SimpleList/Node/SimpleListNode.h"
+#include "src/dataStructures/SimpleList/Node/SimpleListNode.h"
+#include "mutatron.h"
 using namespace std;
 
 
-LsitaSimple<int> nuevaGeneracion;
+ListaSimple<int> nuevaGeneracion;
 ListaSimple<int> Poblacion;
 
-int conseguirFitness () {
+int genetico::conseguirFitness () {
   return 158;
   }
 
@@ -21,7 +22,7 @@ int conseguirFitness () {
  *
  * return int con el valor del individuo
  */
-int crearIndividuo () {
+int genetico::crearIndividuo () {
   int RandomInd = rand()%225;     //numero al azar entre 0 y 225
   return RandomInd;
   }
@@ -31,7 +32,7 @@ int crearIndividuo () {
  *
  *
  */
- void crearPoblacion (int Densidad) {
+ void genetico::crearPoblacion (int Densidad) {
      for (int i = 0; i<Densidad; i++) {
          this.Poblacion::elementAt(i)=crearIndividuo();
      }
@@ -48,7 +49,7 @@ int crearIndividuo () {
   *
   *
   */
- int escogerPadre () {
+ int genetico::escogerPadre () {
 
      int FitnessTotal=0;
 
@@ -72,7 +73,7 @@ int crearIndividuo () {
   *
   *
   */
- int fitnessTest (int SubjectD) {
+ int genetico::fitnessTest (int SubjectD) {
      return abs(conseguirFitness() - SubjectD);
 }
 
@@ -81,7 +82,7 @@ int crearIndividuo () {
   *
   *
   */
- void fitnessTest (int SubjectA, int SubjectB, int SubjectC, int SubjectD) {
+ void genetico::fitnessTest (int SubjectA, int SubjectB, int SubjectC, int SubjectD) {
      int A=fitnessTest(SubjectA);
      int B=fitnessTest(SubjectB);
      int C=fitnessTest(SubjectC);
@@ -113,7 +114,7 @@ int crearIndividuo () {
  *
  *
  */
-void Reproducir () {
+void genetico::Reproducir () {
     int iPadre = escogerPadre ();
     int iMadre = escogerPadre ();
 
@@ -149,7 +150,7 @@ void Reproducir () {
  *
  *
  */
-void cambiarGeneraciones () {
+void genetico::cambiarGeneraciones () {
     for (int i = 0; i<this.Poblacion::getLenght(); i++) {
         this.Poblacion::elementAt(i)=this.nuevaGeneracion::elementAt(i);
     }
@@ -162,7 +163,7 @@ void cambiarGeneraciones () {
  *
  *
 */
-int conseguirMejorIndividuo() {
+int genetico::conseguirMejorIndividuo() {
     int Mejor = 32766;
     for (int i = 0; i<this.Poblacion::getLenght(); i++) {
         if (fitnessTest(this.Poblacion::elementAt(i))<Mejor) {
@@ -178,7 +179,7 @@ int conseguirMejorIndividuo() {
  *
  * reproduce hasta que las generaciones tenga la misma cantidad de elementos
  */
-int start (int Generaciones, int pPoblacion) {
+int genetico::start (int Generaciones, int pPoblacion) {
     crearPoblacion(pPoblacion);
     for (int i = 0; i<Generaciones; i++) {
 
@@ -193,7 +194,7 @@ int start (int Generaciones, int pPoblacion) {
 /*   Corre el prorama
 *
  */
-int main()
+int genetico::main()
 {
     int G = 0;
     int P = 0;

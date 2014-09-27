@@ -233,16 +233,24 @@ bool SimpleList<K>::removeAt (int pIndex){
 }
 template <typename K >
 bool SimpleList<K>::clear(){
-    SimpleListNode<K>* temp = this->_head->getNext();
+    if (this->_lenght == 1){
+        this->_head = 0;
+        this->_tail = 0;
+        this->_lenght = 0;
+        return true;
+    }
     if (this->_lenght == 0){
         return true;
     }else{
+        SimpleListNode<K>* temp = this->_head->getNext();
         while (temp != this->_tail){
             this->_head = 0;
             this->_head = temp;
+            this->_lenght=0;
         }
         this->_tail = 0;
         this->_head = 0;
+        this->_lenght = 0;
     }
 }
 template <typename K>

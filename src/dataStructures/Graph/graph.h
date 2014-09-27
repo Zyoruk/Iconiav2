@@ -45,6 +45,8 @@ public:
      * \brief describe will print every node of the graph.
      */
     void describe();
+
+    bool clear();
 private:
     /*!
      * \brief _GraphNodes simple linked list containing the pointers to the nodes.
@@ -115,6 +117,12 @@ void Graph<K>::describe(){
         temp = temp->getNext();
         i++;
     }
+}
+template <typename K>
+bool Graph<K>::clear(){
+    this->_elements->clear();
+    this->_GraphNodes->clear();
+    return true;
 }
 
 #endif // GRAPH_H

@@ -13,7 +13,11 @@ public:
     bool ifExists (K pElement);
     bool isEmpty();
     bool removeAt (int pIndex);
+<<<<<<< HEAD
+    bool clear ();
+=======
     bool clear();
+>>>>>>> fa4dda088f3d44da7cdeb50fcc8b1426a83c4f5c
     SimpleListNode<K>* search(K pElement);
     SimpleListNode<K>* getHead();
     SimpleListNode<K>* getTail();
@@ -36,6 +40,13 @@ template <typename K> SimpleList<K>::SimpleList(){
 
 template <typename K>
 bool SimpleList<K>::isEmpty(){ return this->_lenght == 0;}
+
+template <typename K>
+bool SimpleList<K>::clear(){
+    this->_tail=this->_head;
+    this->_lenght=0;
+    return true;
+}
 
 template <typename K>
 unsigned int SimpleList<K>::getLenght(){return this->_lenght;}

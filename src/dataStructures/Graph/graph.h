@@ -14,112 +14,61 @@ public:
     bool connect(K pNodeA , K pNodeB);
     bool areConnected(K pNodeA, K pNodeB);
 private:
-    SimpleList<GraphNode*>* _GraphNodes;
+    SimpleList<GraphNode<K>* >* _GraphNodes;
+    SimpleList<K>* _elements;
 };
-
-
 template <typename K>
-bool Graph::add(K pNode){
-    SimpleListNode<GraphNode>* temp = this->_GraphNodes->getHead();
-    unsigned int i = 0;
-    while (i!=this->_GraphNodes->getLenght()){
-        if (*(*temp->getElement()->getElement()) == pNode){
-            return false;
-        }else{
-            temp = temp->getNext();
-        }
+Graph<K>::Graph(){
+    this->_GraphNodes = new SimpleList<GraphNode<K>* >();
+    this->_elements = new SimpleList<K>();
+}
+template <typename K>
+bool Graph<K>::add(K pNode){
+    if (this->_elements->ifExists(pNode)){
+        return false;
     }
-    GraphNode* newNode = new GraphNode();
+    GraphNode<K>* newNode = new GraphNode<K>();
     newNode->setElement(pNode);
+    this->_elements->append(pNode);
     this->_GraphNodes->append(newNode);
     return true;
 }
 
 template <typename K>
-bool Graph::remove(K pNode){
-    SimpleListNode<GraphNode>* temp = this->_GraphNodes->getHead();
-    unsigned int i = 0;
-    while (i != this->_GraphNodes->getLenght()){
-        if (*(*temp->getElement()->getElement()) == pNode){
-            this->_GraphNodes->remove(temp);
-            //falta algo
-            return true;
-        }else{
-            temp = temp->getNext();
-        }
-    }
-    return false;
-}
-
-template <typename K>
-bool Graph::areConnected(K pNodeA, K pNodeB){
-    SimpleListNode<GraphNode>* temA = this->_GraphNodes->getHead();
-    unsigned int i = 0;
-    while(i != this->_GraphNodes->getLenght()){
-        if (*temA->getElement()->getElement() == pNodeA){
-            break;
-        }else{
-            temA = temA->getNext();
-        }
-    }
-    i = 0;
-    SimpleListNode<GraphNode>* temB = this->_GraphNodes->getHead();
-    while (i != this->_GraphNodes->getLenght()){
-        if (*(temB->getElement()->getElement()) == pNodeB){
-            break;
-        }else{
-            temB = temB->getNext();
-        }
-    }
-    // At this point we have 2 values for temA and temB, so we have to ensure those are the correct values
-
-    if (*temA->getElement()->getElement()== pNodeA && *temB->getElement()->getElement() == pNodeB){
-        return temA->getElement()->existsConnection(temB->getElement());
-    }else{
+bool Graph<K>::remove(K pNode){
+    int index = this->_elements->indexOf(pNode);
+    if (index == -1){
         return false;
     }
+    this->_elements->removeAt(index);
+    this->_GraphNodes->removeAt(index);
+    return true;
 }
 
 template <typename K>
-bool Graph::connect(K pNodeA, K pNodeB){
-    SimpleListNode<GraphNode>* temA = this->_GraphNodes->getHead();
-    unsigned int i = 0;
-    while(i != this->_GraphNodes->getLenght()){
-        if (*temA->getElement()->getElement() == pNodeA){
-            break;
-        }else{
-            temA = temA->getNext();
-        }
-    }
-    i = 0;
-    SimpleListNode<GraphNode>* temB = this->_GraphNodes->getHead();
-    while (i != this->_GraphNodes->getLenght()){
-        if (*(temB->getElement()->getElement()) == pNodeB){
-            break;
-        }else{
-            temB = temB->getNext();
-        }
-    }
-    // At this point we have 2 values for temA and temB, so we have to ensure those are the correct values
-
-    if (*temA->getElement()->getElement()== pNodeA && *temB->getElement()->getElement() == pNodeB){
-        if (temA->getElement()->existsConnection(temB->getElement())){
-            return false;
-        }else{
-            temA->getElement()->connectTo(temB->getElement());
-            return true;
-        }
-    }else{
-        return false;
-    }
+bool Graph<K>::areConnected(K pNodeA, K pNodeB){
+    int indexA = this->_elements->indexOf(pNodeA);
+    int indexB = this->_elements->indexOf(pNodeB);
+    GraphNode<K>* nodeA = (*this->_GraphNodes->elementAt(indexA)->getElement());
+    GraphNode<K>* nodeB = (*this->_GraphNodes->elementAt(indexB)->getElement());
+    return nodeA->existsConnection(nodeB);
 }
 
 template <typename K>
-bool Graph::exists(K pNode){
-    SimpleListNode<GraphNode>* temp = this->_GraphNodes->getHead();
+bool Graph<K>::connect(K pNodeA, K pNodeB){
+    int indexA = this->_elements->indexOf(pNodeA);
+    int indexB = this->_elements->indexOf(pNodeB);
+    GraphNode<K>* nodeA = (*this->_GraphNodes->elementAt(indexA)->getElement());
+    GraphNode<K>* nodeB = (*this->_GraphNodes->elementAt(indexB)->getElement());
+    return nodeA->connectTo(nodeB);
+}
+
+template <typename K>
+bool Graph<K>::exists(K pNode){
+    SimpleListNode<K>* temp = this->_elements->getHead();
     unsigned int i = 0;
-    while(i != this->_GraphNodes->getLenght()){
-        if (*temp->getElement()->getElement() == pNode){
+    while(i != this->_elements->getLenght()-1){
+        if (*temp->getElement()== pNode){
             return true;
         }else{
             temp = temp->getNext();

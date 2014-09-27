@@ -57,8 +57,8 @@ private:
 
 template <typename K>
 SimpleListNode<K>::SimpleListNode() {
-    this->_element = 0;
     this->_next = 0;
+    this->_element = 0;
 }
 
 template <typename K>

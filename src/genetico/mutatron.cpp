@@ -13,7 +13,7 @@ using namespace std;
  */
 void printBits(unsigned int num)
 {
-   for(int bit=0;bit<(sizeof(unsigned int) * 8); bit++)
+   for(unsigned int bit=0;bit<(sizeof(unsigned int) * 8); bit++)
    {
       printf("%i ", num & 0x01);
       num = num >> 1;

@@ -1,6 +1,7 @@
 #ifndef SIMPLELIST_H
 #define SIMPLELIST_H
 #include"src/dataStructures/SimpleList/Node/SimpleListNode.h"
+
 template <typename K>
 class SimpleList{
 public:
@@ -10,6 +11,7 @@ public:
     bool remove (K pElement);
     bool ifExists (K pElement);
     bool isEmpty();
+    bool removeAt (int pIndex);
     SimpleListNode<K>* search(K pElement);
     SimpleListNode<K>* getHead();
     SimpleListNode<K>* getTail();
@@ -90,16 +92,12 @@ bool SimpleList<K>::append(K pElement){
         this->_lenght += 1;
         return true;
     }else{
-        if (this->ifExists(pElement)){
-            return false;
-        }else{
-            SimpleListNode<K>* tmp = new SimpleListNode<K>();
-            tmp->setElement(pElement);
-            this->getTail()->setNext(tmp);
-            this->_tail = tmp;
-            this->_lenght += 1;
-            return true;
-        }
+        SimpleListNode<K>* tmp = new SimpleListNode<K>();
+        tmp->setElement(pElement);
+        this->getTail()->setNext(tmp);
+        this->_tail = tmp;
+        this->_lenght += 1;
+        return true;
     }
     return false;
 }
@@ -186,6 +184,38 @@ int SimpleList<K>::indexOf(K pElement){
             }
         }
         return -1;
+    }
+}
+
+template <typename K>
+bool SimpleList<K>::removeAt (int pIndex){
+    if (this->_lenght == 0){
+        return false;
+    }else{
+        if (pIndex >= this->_lenght){
+            return false;
+        }
+        SimpleListNode<K>* current = this->_head;
+        SimpleListNode<K>* previous = 0;
+        int i = 0;
+        while (i != pIndex){
+            if  (current->getNext() == 0 ){
+                this->_tail = previous;
+                current = 0;
+                return true;
+            }
+            current = current->getNext();
+            previous = current;
+        }
+        if (current->getNext()->getNext() == 0){
+            this->_tail = previous;
+            current = 0;
+            return true;
+        }
+        previous->setNext(current->getNext()->getNext());
+        current->setElement(0);
+        current = 0;
+        return true;
     }
 }
 

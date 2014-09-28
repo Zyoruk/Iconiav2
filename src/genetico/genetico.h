@@ -52,7 +52,7 @@ private:
    void seleccionNatural (short SubjectA, short SubjectB, short SubjectC, short SubjectD);
    /*!
     * \brief Reproducir takes a random pair of elements (may be the same) from the population
-    *        to create other 2 objects, then it runs seleccionNatural to choose the best two
+    *        to create other 2 objects, then itgit  runs seleccionNatural to choose the best two
     *
     */
    void Reproducir();

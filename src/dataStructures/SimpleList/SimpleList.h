@@ -20,6 +20,7 @@ public:
     SimpleListNode<K>* elementAt(int pIndex);
     int indexOf(K pElement);
     bool deleteHead();
+    void describe();
 
 private:
     unsigned int _lenght;
@@ -231,28 +232,15 @@ bool SimpleList<K>::removeAt (int pIndex){
         return true;
     }
 }
+
 template <typename K >
 bool SimpleList<K>::clear(){
-    if (this->_lenght == 1){
-        this->_head = 0;
-        this->_tail = 0;
-        this->_lenght = 0;
-        return true;
+    while (this->_lenght != 0){
+        this->deleteHead();
     }
-    if (this->_lenght == 0){
-        return true;
-    }else{
-        SimpleListNode<K>* temp = this->_head->getNext();
-        while (temp != this->_tail){
-            this->_head = 0;
-            this->_head = temp;
-            this->_lenght=0;
-        }
-        this->_tail = 0;
-        this->_head = 0;
-        this->_lenght = 0;
-    }
+    return true;
 }
+
 template <typename K>
 bool SimpleList<K>::deleteHead(){
     if ( this->getLenght() == 0){
@@ -261,11 +249,24 @@ bool SimpleList<K>::deleteHead(){
         this->_head = 0;
         this->_tail = 0;
         this->_lenght --;
+        return true;
     }
     SimpleListNode<K>* temp = this->_head->getNext();
-    this->head = 0;
-    this->head = temp;
+    this->_head = 0;
+    this->_head = temp;
     this->_lenght--;
+    return true;
+}
+
+template <typename K>
+void SimpleList<K>::describe(){
+    cout << "Head: " << *this->_head->getElement() <<"\n"
+         << "Tail: " << *this->_tail->getElement();
+    SimpleListNode<K>* temp = this->_head;
+    for (int i = 0; i != this->_lenght; i++){
+        cout << *temp->getElement() << " ";
+        temp = temp->getNext();
+    }
 }
 
 #endif // SIMPLELIST_H

@@ -153,12 +153,16 @@ GraphNode<K>* Graph<K>::getNode(K pNode){
 
 template <typename K>
 bool Graph<K>::moveAB(K nodeA, K nodeB){
-    SimpleList <GraphNode<K>* >* possibleSolution = new SimpleList<GraphNode<K>* >();
     int indexA = this->_elements->indexOf(nodeA);
     int indexB = this->_elements->indexOf(nodeB);
     GraphNode<K>* tempA = *this->_GraphNodes->elementAt(indexA)->getElement();
     GraphNode<K>* tempB = *this->_GraphNodes->elementAt(indexB)->getElement();
-    SimpleList<GraphNode<K>* >* closed = new SimpleList<GraphNode<K>* >();
+    SimpleList <GraphNode<K>* >* closed = new SimpleList <GraphNode<K>* >();
+    SimpleList <GraphNode<K>* >* possibleSolution = new SimpleList <GraphNode<K>* >();
+    cout << (*tempA->getElement()) << " ";
+    cout << (*tempB->getElement()) << " ";
+    cout << closed << " ";
+    cout << possibleSolution << " ";
     this->searchforPaths(tempA,tempB,possibleSolution,closed);
 //    if(possibleSolution->getLenght() == 1){
 //        return false;
@@ -168,26 +172,35 @@ bool Graph<K>::moveAB(K nodeA, K nodeB){
 //    }else{
 //        return false;
 //    }
+    return true;
 }
 template <typename K>
 void Graph<K>::searchforPaths(GraphNode<K> *pNodeA, GraphNode<K> *pNodeB, SimpleList<GraphNode<K> *>* pList, SimpleList<GraphNode<K>* >* closed){
+    //Get the connections of the node
+    cout <<"asdasd0";
     SimpleList<GraphNode<K>* >* temp = pNodeA->getConnections();
+    //Add to the solution the initial node.
     pList->append(pNodeA);
-    if (temp->getLenght() != 0){
-        if (temp->ifExists(pNodeB)){
-                cout << " Aqui";
-            pList->append(pNodeB);
-            closed->clear();
-            closed = 0;
-            temp->clear();
-            temp = 0;
+    //If has connections
+    if ( temp->getLenght() != 0){
+        //If the current connections have the node we are searching. Then we add the node and clear.
+        while ( temp->getLenght() != 0){
+            if (temp->ifExists(pNodeB)){
+//                pList->append(pNodeB);
+//                closed->clear();
+//                closed = 0;
+                temp->clear();
+                temp = 0;
+            }else{
+//                //If the current connections didnt have the node. We use the first one.
+//                searchforPaths(*temp->getHead()->getElement(), pNodeB, pList,closed);
+                temp->deleteHead();
+            }
         }
-    }else if((*temp->getHead()->getElement())->getConnections()->getLenght() == 0){
-        closed->append(*temp->getHead()->getElement());
-        searchforPaths(pNodeA,pNodeB,pList,closed);
     }else{
-        searchforPaths(*temp->getHead()->getElement(),pNodeB,pList,closed);
-      }
+        //It is a dead - end.
+        closed->append(pNodeA);
+    }
     }
 
 #endif // GRAPH_H

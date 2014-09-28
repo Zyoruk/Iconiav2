@@ -18,7 +18,9 @@ Genetico::Genetico (short Generaciones, short Densidad) {
    crearPoblacion(Densidad);
    for (short i = 0; i<Generaciones; i++) {
        cout << "Generacion" << i << endl;
-       for ( short j = 0 ; j < Densidad/2 ; j++){          //Se obtienen dos elementos de cada reproduccion -> Densidad/2 reproducciones = Densidad elementos
+
+       //Se obtienen dos elementos de cada reproduccion -> Densidad/2 reproducciones = Densidad elementos
+       for ( short j = 0 ; j < Densidad/2 ; j++){
           Reproducir();
           cout << j << " " << this->nuevaGeneracion->getLenght() << endl;
        }

@@ -2,6 +2,7 @@ using namespace std;
 #include "src/dataStructures/Graph/graph.h"
 #include "src/dataStructures/SimpleList/SimpleList.h"
 #include "iostream"
+
 int main()
 {
     Graph<int>* temp = new Graph<int>();
@@ -12,7 +13,11 @@ int main()
     temp->connect(198,200);
     temp->connect(200,56);
     temp->connect(98,198);
-    temp->moveAB(98,198);
+    //temp->moveAB(98,198);
+   // temp->moveAB(198,200);
+    temp->moveAB(56,200);
+//    temp->searchforPaths(98, 200, );
+
     return 0;
 }
 

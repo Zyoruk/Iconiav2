@@ -89,6 +89,7 @@ Graph<K>::Graph(){
     this->_GraphNodes = new SimpleList<GraphNode<K>* >();
     this->_elements = new SimpleList<K>();
 }
+
 template <typename K>
 bool Graph<K>::add(K pNode){
     if (this->_elements->ifExists(pNode)){
@@ -98,7 +99,6 @@ bool Graph<K>::add(K pNode){
     newNode->setElement(pNode);
     this->_elements->append(pNode);
     this->_GraphNodes->append(newNode);
-    cout << "added ";
     return true;
 }
 
@@ -128,7 +128,6 @@ bool Graph<K>::connect(K pNodeA, K pNodeB){
     int indexB = this->_elements->indexOf(pNodeB);
     GraphNode<K>* nodeA = (*this->_GraphNodes->elementAt(indexA)->getElement());
     GraphNode<K>* nodeB = (*this->_GraphNodes->elementAt(indexB)->getElement());
-    cout << nodeA << "connected " << nodeB;
     return nodeA->connectTo(nodeB);
 }
 
@@ -147,6 +146,7 @@ void Graph<K>::describe(){
         i++;
     }
 }
+
 template <typename K>
 bool Graph<K>::clear(){
     this->_elements->clear();
@@ -173,16 +173,17 @@ bool Graph<K>::moveAB(K nodeA, K nodeB){
     cout << closed << " ";
     cout << possibleSolution << " ";
     this->searchforPaths(tempA,tempB,possibleSolution,closed);
-//    if(possibleSolution->getLenght() == 1){
-//        return false;
-//    }else if (*(*possibleSolution->getHead()->getElement())->getElement() == nodeA &&
-//              *(*possibleSolution->getTail()->getElement())->getElement() == nodeB){
-//        return true;
-//    }else{
-//        return false;
-//    }
+    if(possibleSolution->getLenght() == 1){
+        return false;
+    }else if (*(*possibleSolution->getHead()->getElement())->getElement() == nodeA &&
+              *(*possibleSolution->getTail()->getElement())->getElement() == nodeB){
+        return true;
+    }else{
+        return false;
+    }
     return true;
 }
+
 template <typename K>
 void Graph<K>::searchforPaths(GraphNode<K> *pNodeA, GraphNode<K> *pNodeB, SimpleList<GraphNode<K> *>* pList, SimpleList<GraphNode<K>* >* closed){
     //Get the connections of the node
@@ -194,17 +195,17 @@ void Graph<K>::searchforPaths(GraphNode<K> *pNodeA, GraphNode<K> *pNodeB, Simple
         //If the current connections have the node we are searching. Then we add the node and clear.
         while ( temp->getLenght() != 0){
             if (temp->ifExists(pNodeB)){
-//                pList->append(pNodeB);
-//                closed->clear();
-//                closed = 0;
-//                temp->clear();
-//                temp = 0;
+                pList->append(pNodeB);
+                closed->clear();
+                closed = 0;
+                temp->clear();
             }else{
-//                //If the current connections didnt have the node. We use the first one.
-//                searchforPaths(*temp->getHead()->getElement(), pNodeB, pList,closed);
+                //If the current connections didnt have the node. We use the first one.
+                searchforPaths(*temp->getHead()->getElement(), pNodeB, pList,closed);
                 temp->deleteHead();
             }
         }
+        temp = 0;
     }else{
         //It is a dead - end.
         closed->append(pNodeA);

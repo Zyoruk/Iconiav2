@@ -1,4 +1,5 @@
 using namespace std;
+<<<<<<< HEAD
 #include "src/dataStructures/Graph/graph.h"
 #include "src/dataStructures/SimpleList/SimpleList.h"
 #include "iostream"
@@ -14,5 +15,11 @@ int main()
     temp->connect(98,198);
     //temp->moveAB(98,198);
     return 0;
+=======
+
+int main()
+{
+return 0;
+>>>>>>> 8774d8d52db0d6bad5caa5b5ee66559758c9e5e8
 }
 

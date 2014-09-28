@@ -173,23 +173,21 @@ template <typename K>
 void Graph<K>::searchforPaths(GraphNode<K> *pNodeA, GraphNode<K> *pNodeB, SimpleList<GraphNode<K> *>* pList, SimpleList<GraphNode<K>* >* closed){
     SimpleList<GraphNode<K>* >* temp = pNodeA->getConnections();
     pList->append(pNodeA);
-    cout << " Aqui";
     if (temp->getLenght() != 0){
         if (temp->ifExists(pNodeB)){
+                cout << " Aqui";
             pList->append(pNodeB);
             closed->clear();
             closed = 0;
             temp->clear();
             temp = 0;
         }
+    }else if((*temp->getHead()->getElement())->getConnections()->getLenght() == 0){
+        closed->append(*temp->getHead()->getElement());
+        searchforPaths(pNodeA,pNodeB,pList,closed);
+    }else{
+        searchforPaths(*temp->getHead()->getElement(),pNodeB,pList,closed);
+      }
     }
-//        }else if((*temp->getHead()->getElement())->getConnections()->getLenght() == 0){
-//            closed->append(*temp->getHead()->getElement());
-//            searchforPaths(pNodeA,pNodeB,pList,closed);
-//        }else{
-//            searchforPaths(*temp->getHead()->getElement(),pNodeB,pList,closed);
-//        }
-//    }
-}
 
 #endif // GRAPH_H

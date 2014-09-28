@@ -38,13 +38,6 @@ template <typename K>
 bool SimpleList<K>::isEmpty(){ return this->_lenght == 0;}
 
 template <typename K>
-bool SimpleList<K>::clear(){
-    this->_tail=this->_head;
-    this->_lenght=0;
-    return true;
-}
-
-template <typename K>
 unsigned int SimpleList<K>::getLenght(){return this->_lenght;}
 
 template <typename K>

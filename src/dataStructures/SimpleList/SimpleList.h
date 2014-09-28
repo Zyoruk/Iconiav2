@@ -1,7 +1,8 @@
 #ifndef SIMPLELIST_H
 #define SIMPLELIST_H
 #include"src/dataStructures/SimpleList/Node/SimpleListNode.h"
-
+#include "iostream"
+using namespace std;
 template <typename K>
 class SimpleList{
 public:
@@ -12,12 +13,17 @@ public:
     bool ifExists (K pElement);
     bool isEmpty();
     bool removeAt (int pIndex);
+<<<<<<< HEAD
     bool clear ();
+=======
+    bool clear();
+>>>>>>> fa4dda088f3d44da7cdeb50fcc8b1426a83c4f5c
     SimpleListNode<K>* search(K pElement);
     SimpleListNode<K>* getHead();
     SimpleListNode<K>* getTail();
     SimpleListNode<K>* elementAt(int pIndex);
     int indexOf(K pElement);
+    bool deleteHead();
 
 private:
     unsigned int _lenght;
@@ -199,8 +205,15 @@ template <typename K>
 bool SimpleList<K>::removeAt (int pIndex){
     if (this->_lenght == 0){
         return false;
+    }else if (pIndex == 0){
+        SimpleListNode<K>* temp = this->_head->getNext();
+        this->_head = 0;
+        this->_head = temp;
+
+        this->_lenght--;
+        return true;
     }else{
-        if (pIndex >= this->_lenght){
+        if (pIndex >= this->_lenght){            
             return false;
         }
         SimpleListNode<K>* current = this->_head;
@@ -210,6 +223,7 @@ bool SimpleList<K>::removeAt (int pIndex){
             if  (current->getNext() == 0 ){
                 this->_tail = previous;
                 current = 0;
+                this->_lenght --;
                 return true;
             }
             current = current->getNext();
@@ -218,14 +232,43 @@ bool SimpleList<K>::removeAt (int pIndex){
         if (current->getNext()->getNext() == 0){
             this->_tail = previous;
             current = 0;
+            this->_lenght--;
             return true;
         }
         previous->setNext(current->getNext()->getNext());
         current->setElement(0);
         current = 0;
+        this->_lenght --;
         return true;
     }
 }
-
+template <typename K >
+bool SimpleList<K>::clear(){
+    SimpleListNode<K>* temp = this->_head->getNext();
+    if (this->_lenght == 0){
+        return true;
+    }else{
+        while (temp != this->_tail){
+            this->_head = 0;
+            this->_head = temp;
+        }
+        this->_tail = 0;
+        this->_head = 0;
+    }
+}
+template <typename K>
+bool SimpleList<K>::deleteHead(){
+    if ( this->getLenght() == 0){
+        return true;
+    }else if ( this->getLenght() == 1){
+        this->_head = 0;
+        this->_tail = 0;
+        this->_lenght --;
+    }
+    SimpleListNode<K>* temp = this->_head->getNext();
+    this->head = 0;
+    this->head = temp;
+    this->_lenght--;
+}
 
 #endif // SIMPLELIST_H

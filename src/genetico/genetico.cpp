@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 #include <iostream>
 #include <stdlib.h>
 #include <cstdlib>
@@ -217,4 +219,8 @@ void Genetico::cambiarGeneraciones () {
 //    cout << endl;
 
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9cd119a884ec2aad7be53b43f4d5548289e23739
+>>>>>>> fa4dda088f3d44da7cdeb50fcc8b1426a83c4f5c

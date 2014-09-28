@@ -12,7 +12,7 @@ int main()
     temp->connect(198,200);
     temp->connect(200,56);
     temp->connect(98,198);
-    //temp->moveAB(98,198);
+    temp->moveAB(98,198);
     return 0;
 }
 

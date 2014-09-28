@@ -261,7 +261,7 @@ bool SimpleList<K>::deleteHead(){
 template <typename K>
 void SimpleList<K>::describe(){
     cout << "Head: " << *this->_head->getElement() <<"\n"
-         << "Tail: " << *this->_tail->getElement();
+         << "Tail: " << *this->_tail->getElement() <<"\n";
     SimpleListNode<K>* temp = this->_head;
     for (int i = 0; i != this->_lenght; i++){
         cout << *temp->getElement() << " ";

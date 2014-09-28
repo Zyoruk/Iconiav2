@@ -75,6 +75,13 @@ private:
      */
     SimpleList<K>* _elements;
 
+    /*!
+     * \brief searchforPaths uses backtracking in order to get a Path from A to B
+     * \param pNodeA
+     * \param pNodeB
+     * \param pList
+     * \param closed
+     */
     void searchforPaths (GraphNode<K>* pNodeA , GraphNode<K>* pNodeB, SimpleList<GraphNode<K>* >* pList, SimpleList<GraphNode<K>* >* closed);
 };
 template <typename K>
@@ -91,6 +98,7 @@ bool Graph<K>::add(K pNode){
     newNode->setElement(pNode);
     this->_elements->append(pNode);
     this->_GraphNodes->append(newNode);
+    cout << "added ";
     return true;
 }
 
@@ -120,6 +128,7 @@ bool Graph<K>::connect(K pNodeA, K pNodeB){
     int indexB = this->_elements->indexOf(pNodeB);
     GraphNode<K>* nodeA = (*this->_GraphNodes->elementAt(indexA)->getElement());
     GraphNode<K>* nodeB = (*this->_GraphNodes->elementAt(indexB)->getElement());
+    cout << nodeA << "connected " << nodeB;
     return nodeA->connectTo(nodeB);
 }
 
@@ -157,8 +166,8 @@ bool Graph<K>::moveAB(K nodeA, K nodeB){
     int indexB = this->_elements->indexOf(nodeB);
     GraphNode<K>* tempA = *this->_GraphNodes->elementAt(indexA)->getElement();
     GraphNode<K>* tempB = *this->_GraphNodes->elementAt(indexB)->getElement();
-    SimpleList <GraphNode<K>* >* closed = new SimpleList <GraphNode<K>* >();
-    SimpleList <GraphNode<K>* >* possibleSolution = new SimpleList <GraphNode<K>* >();
+    SimpleList<GraphNode<K>* >* closed = new SimpleList<GraphNode<K>* >();
+    SimpleList<GraphNode<K>* >* possibleSolution = new SimpleList<GraphNode<K>* >();
     cout << (*tempA->getElement()) << " ";
     cout << (*tempB->getElement()) << " ";
     cout << closed << " ";
@@ -177,7 +186,6 @@ bool Graph<K>::moveAB(K nodeA, K nodeB){
 template <typename K>
 void Graph<K>::searchforPaths(GraphNode<K> *pNodeA, GraphNode<K> *pNodeB, SimpleList<GraphNode<K> *>* pList, SimpleList<GraphNode<K>* >* closed){
     //Get the connections of the node
-    cout <<"asdasd0";
     SimpleList<GraphNode<K>* >* temp = pNodeA->getConnections();
     //Add to the solution the initial node.
     pList->append(pNodeA);
@@ -189,8 +197,8 @@ void Graph<K>::searchforPaths(GraphNode<K> *pNodeA, GraphNode<K> *pNodeB, Simple
 //                pList->append(pNodeB);
 //                closed->clear();
 //                closed = 0;
-                temp->clear();
-                temp = 0;
+//                temp->clear();
+//                temp = 0;
             }else{
 //                //If the current connections didnt have the node. We use the first one.
 //                searchforPaths(*temp->getHead()->getElement(), pNodeB, pList,closed);

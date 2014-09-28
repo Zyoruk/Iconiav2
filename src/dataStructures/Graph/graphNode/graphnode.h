@@ -16,42 +16,42 @@ public:
      * \param pNodeTo graph node pointer.
      * \return if exists
      */
-    bool existsConnection(GraphNode* pNodeTo);
+    bool existsConnection(GraphNode<K>* pNodeTo);
     /*!
      * \brief removeConnectionTo If the connection exists, then remove it.
      * \param pNodeTo Graph node pointer to the one we want to remove connection.
      * \return if it was able to remove.
      */
-    bool removeConnectionTo(GraphNode* pNodeTo);
+    bool removeConnectionTo(GraphNode<K>* pNodeTo);
     /*!
      * \brief connectTo
      * \param pNodeTo
      * \return
      */
-    bool connectTo(GraphNode* pNodeTo);
+    bool connectTo(GraphNode<K>* pNodeTo);
 
-    SimpleList<GraphNode*>* getConnections();
+    SimpleList<GraphNode<K>*>* getConnections();
 private:
     /*!
      * \brief _connectedTo is the list that contains all the nodes this is connected to.
      */
-    SimpleList<GraphNode*>* _connectedTo;
+    SimpleList<GraphNode<K>*>* _connectedTo;
 };
 template <typename K>
 GraphNode<K>::GraphNode(){
-    this->_connectedTo = new SimpleList<GraphNode*>();
+    this->_connectedTo = new SimpleList<GraphNode<K>*>();
 }
 template <typename K>
-bool GraphNode<K>::existsConnection(GraphNode *pNodeTo){
+bool GraphNode<K>::existsConnection(GraphNode<K> *pNodeTo){
     return this->_connectedTo->ifExists(pNodeTo);
 }
 
 template <typename K>
-bool GraphNode<K>::connectTo(GraphNode *pNodeTo){
+bool GraphNode<K>::connectTo(GraphNode<K> *pNodeTo){
    return this->_connectedTo->append(pNodeTo);
 }
 template <typename K>
-bool GraphNode<K>::removeConnectionTo(GraphNode *pNodeTo){
+bool GraphNode<K>::removeConnectionTo(GraphNode<K> *pNodeTo){
     return this->_connectedTo->remove(pNodeTo);
 }
 template <typename K>

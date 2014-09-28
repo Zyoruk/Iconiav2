@@ -1,55 +1,71 @@
 #ifndef GENETICO_H
 #define GENETICO_H
 
+#include "src/dataStructures/SimpleList/SimpleList.h"
 class Genetico
 {
 public:
-    Genetico();
-    /*!
-     * \brief start creates and reproduces a genetic algorythm
-     * \param Generaciones the amount of generations that the program is going to run
-     * \return The object with the most fitness after X generations
-     */
-    int start(int Generaciones);
+   /*!
+    * \brief start creates and reproduces a genetic algorythm for X generations of X subjects
+    * \param Generaciones the amount of generations that the program is going to run
+    * \param Densidad the amount of persons in the population. It has to be pair since two parents have to children
+    */
+   Genetico(short Generaciones, short Densidad);
 private:
-    /*!
-     * \brief crearIndividuo
-     * \return an int with a new, random, object
-     */
-    int crearIndividuo();
-    /*!
-     * \brief crearPoblacion creates a random population of X elements
-     * \param Densidad the amount of objects the population has
-     */
-    int crearPoblacion(int Densidad);
-    /*!
-     * \brief Reproducir takes a random pair of elements (may be the same) from the population
-     *        to create other 2 objects, then it runs them through a fitness test
-     */
-    void Reproducir();
-    /*!
-     * \brief fitnessTest runs an object against the determined test (in this case a getFitness)
-     * \param SubjectD the subject to be tested
-     * \return the fitness value of the object
-     */
-    int fitnessTest (int* SubjectD);
-    /*!
-     * \brief fitnessTest adds the best objects to a temporal list
-     * \param SubjectA
-     * \param SubjectB
-     * \param SubjectC
-     * \param SubjectD
-     */
-    void fitnessTest (int* SubjectA, int* SubjectB, int* SubjectC, int* SubjectD);
-    /*!
-     * \brief cambiarGeneraciones convierte la lista temporal con los mejores (probablemente) individuos en la lista principal
-     */
-    void cambiarGeneraciones ();
-    /*!
-     * \brief conceguirMejorIndividuo
-     * \return the object with best fitness
-     */
-    int conseguirMejorIndividuo ();
+   SimpleList<short>* nuevaGeneracion;
+   SimpleList<short>* Poblacion;
+   /*!
+    * \brief conseguirFitness with the help of OpenCV gets the fitness from the original picture
+    * \return the value of the fitness
+    */
+   short conseguirFitness();
+
+   /*!
+    * \brief crearIndividuo creates random short to populate a list
+    * \return an new random short
+    */
+   short crearIndividuo();
+   /*!
+    * \brief crearPoblacion creates a random population of X elements
+    * \param Densidad the amount of objects the population has
+    */
+   void crearPoblacion(short Densidad);
+   /*!
+    * \brief escogerPadre chooses an object based in a a random posibility that increases with a better fitness
+    * \return an short with the index of the location of the parent in the list
+    */
+   short escogerPadre ();
+   /*!
+    * \brief fitnessTest substracts a number with conseguiFitness and gets the absolute value,
+    *                    the lower the fitness the better it is
+    * \param SubjectD the subject to be tested
+    * \return the fitness value of the object
+    */
+   short fitnessTest (short SubjectD);
+   /*!
+    * \brief seleccionNatural adds the best 2 objects of a selection of 4 (two parents and two sons) to a temporal list
+    * \param SubjectA father
+    * \param SubjectB mather
+    * \param SubjectC first son
+    * \param SubjectD second son
+    */
+   void seleccionNatural (short SubjectA, short SubjectB, short SubjectC, short SubjectD);
+   /*!
+    * \brief Reproducir takes a random pair of elements (may be the same) from the population
+    *        to create other 2 objects, then it runs seleccionNatural to choose the best two
+    *
+    */
+   void Reproducir();
+   /*!
+    * \brief cambiarGeneraciones converts the temporal list (nuevaGeneracion), with the best objects in the main list (Poblacion)
+    *
+    */
+   void cambiarGeneraciones ();
+   /*!
+    * \brief conceguirMejorIndividuo searches through the list to find the best object
+    * \return the object with best fitness
+    */
+   short conseguirMejorIndividuo ();
 };
 
 #endif // GENETICO_H

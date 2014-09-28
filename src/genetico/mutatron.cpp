@@ -2,18 +2,23 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-
+#include "src/genetico/mutatron.h"
 using namespace std;
 
+Mutatron::Mutatron(unsigned short Individuo){
+
+    unsigned short Mutageno = crearMutageno();
+    Individuo= mutar(Individuo, Mutageno);
+}
 
 /*   Muestra los cromosomas booleanos del elemento dado,
  * se utiliza principalmente para depurar individualmente
  *
  *
  */
-void printBits(unsigned int num)
+void Mutatron::printBits(unsigned short num)
 {
-   for(unsigned int bit=0;bit<(sizeof(unsigned int) * 8); bit++)
+   for(unsigned short bit=0;bit<(sizeof(unsigned short) * 8); bit++)
    {
       printf("%i ", num & 0x01);
       num = num >> 1;
@@ -27,12 +32,12 @@ void printBits(unsigned int num)
  *
  * return vector de bits; el mutageno
  */
-unsigned int crearMutageno (unsigned int Individuo) {
+unsigned short Mutatron::crearMutageno() {
 
-    srand (time(NULL));
-    unsigned int RandomGen = rand() % sizeof(Individuo)*8+1;
+    srand (static_cast <unsigned> (time(0)));
+    short RandomGen = static_cast <short> (rand()) / (static_cast <short> (RAND_MAX/32));
 
-    unsigned int Vial = 0;
+    unsigned short Vial = 0;
     Vial = ~Vial;
     Vial=Vial>>31;                                                         //Da problemas convirtiendo sizeof()...
     Vial=Vial<<RandomGen;
@@ -46,30 +51,20 @@ unsigned int crearMutageno (unsigned int Individuo) {
  *
  * return vector de bits; el individuo mutado
  */
-unsigned int mutar (unsigned int Individuo, unsigned int Mutageno) {
-    unsigned int Xperson = Individuo^Mutageno;
-    return Xperson;
+unsigned short Mutatron::mutar (unsigned short Individuo, unsigned short Mutageno) {
+    Individuo =  Individuo^Mutageno;
+    return Individuo;
 }
 
 
 /*   Esta función maneja la mutacion del individuo que toma como argumento.
- *  siempre devuelve al Individuo con un bit diferente, en forma de  int*
+ *  siempre devuelve al Individuo con un bit diferente, en forma de  short*
  *
  *
  */
-unsigned int mutatron (unsigned int Individuo) {
+//unsigned short Mutatron::mutatron (unsigned short Individuo) {
 
-    unsigned int Mutageno=crearMutageno(Individuo);
-    unsigned int Xperson = mutar(Individuo, Mutageno);
-    return Xperson;
-}
-
-
-int mainMutatron()
-{
-    unsigned int paciente;
-    cin >> paciente;
-    int Mutante = mutatron(paciente);
-
-    return Mutante;
-}
+    //unsigned short Mutageno=crearMutageno(Individuo);
+    //unsigned short Xperson = mutar(Individuo, Mutageno);
+    //return Xperson;
+//}

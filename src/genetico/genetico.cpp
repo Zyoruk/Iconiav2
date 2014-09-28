@@ -1,207 +1,220 @@
 #include <iostream>
 #include <stdlib.h>
-#include <string.h>
-#include "src/dataStructures/SimpleList/Node/SimpleListNode.h"
-#include "mutatron.h"
+#include <cstdlib>
+#include <ctime>
+#include "src/dataStructures/SimpleList/SimpleList.h"
+#include "src/genetico/genetico.h"
+#include "src/genetico/mutatron.h"
 using namespace std;
 
-
-ListaSimple<int> nuevaGeneracion;
-ListaSimple<int> Poblacion;
-
-int genetico::conseguirFitness () {
-  return 158;
-  }
-
-// Valor de fitness (obtenido de open cv)
-// ListaSimple Poblacion [100];
-// ListaSimple nuevaGeneracion [100];
-
-/* Crea un individuo al azar
- *
- *
- * return int con el valor del individuo
- */
-int genetico::crearIndividuo () {
-  int RandomInd = rand()%225;     //numero al azar entre 0 y 225
-  return RandomInd;
-  }
-
-/* crea un población al azar
- *
- *
- *
- */
- void genetico::crearPoblacion (int Densidad) {
-     for (int i = 0; i<Densidad; i++) {
-         this.Poblacion::elementAt(i)=crearIndividuo();
-     }
+/* corre el programa por x generaciones (iteraciones)
+* a partir de una poblacion de X elementos, X par X/2 par, creada al azar
+*
+* reproduce hasta que las generaciones tenga la misma cantidad de elementos
+*/
+Genetico::Genetico (short Generaciones, short Densidad) {
+   this->nuevaGeneracion = new SimpleList<short>();
+   this->Poblacion = new SimpleList<short>();
+   crearPoblacion(Densidad);
+   for (short i = 0; i<Generaciones; i++) {
+       cout << "Generacion" << i << endl;
+       for ( short j = 0 ; j < Densidad/2 ; j++){          //Se obtienen dos elementos de cada reproduccion -> Densidad/2 reproducciones = Densidad elementos
+          Reproducir();
+          cout << j << " " << this->nuevaGeneracion->getLenght() << endl;
+       }
+       cambiarGeneraciones();
+   }
 }
 
+/*     Se consigue a partir de openCV
+*
+*/
+short Genetico::conseguirFitness () {
+ return 158;
+ }
 
+/* crea un población al azar
+*
+*
+*
+*/
+void Genetico::crearPoblacion (short Densidad) {
+    srand (static_cast <unsigned> (time(0)));
+    for (short i = 0; i<Densidad; i++) {
+        this->Poblacion->append(static_cast <int> (rand()) / (static_cast <int> (RAND_MAX/225)) );
+    }
+}
 
 // /////////////////////////////////////////////////////////////////////// //
 
 
-
- /*    Escoge a un padre basado en una posibilidad que aumenta entre mejor sea su fitness
-  *
-  *
-  *
-  */
- int genetico::escogerPadre () {
-
-     int FitnessTotal=0;
-
-     for (int i = 0; i<this.Poblacion::getLenght(); i++) {
-        int FitnessTotal =+ Poblacion::elementAt(i)+conseguirFitness();   //Manejamos el fitness de manera diferente
-     }
-
-     int RandPadre = rand()%FitnessTotal;
-     int FitnessTotal = 0;
-
-     for (int i = 0; i<this.Poblacion::getLenght(); i++) {
-        int FitnessTotal =+ this.Poblacion::elementAt(i);
-         if (RandPadre <= FitnessTotal) {
-             return i;
-         }
-     }
- }
-
- /* toma un elemento y lo compara con su fitness ideal (obtenido de la imagen), devuelve el int con el fitness
-  * menor==mejor
-  *
-  *
-  */
- int genetico::fitnessTest (int SubjectD) {
-     return abs(conseguirFitness() - SubjectD);
-}
-
- /* Toma tres elementos y los compara entre ellos, agrega los mejores dos elementos a nuevaGeneracion
-  *
-  *
-  *
-  */
- void genetico::fitnessTest (int SubjectA, int SubjectB, int SubjectC, int SubjectD) {
-     int A=fitnessTest(SubjectA);
-     int B=fitnessTest(SubjectB);
-     int C=fitnessTest(SubjectC);
-     int D=fitnessTest(SubjectD);
-     if (A<B) {
-         if (B<C || B<D) {
-             this.nuevaGeneracion::append(A);
-         }
-     } if (B<A) {
-         if (B<C || B<D) {
-             this.nuevaGeneracion::append(B);
-         }
-    } if (C<D) {
-         if (C<A || C<B) {
-             this.nuevaGeneracion::append(C);
-         }
-     } if (D<C) {
-         if (D<A || D<B) {
-             this.nuevaGeneracion::append(D);
-         }
-     }
- }
-
-
-/* Este metodo toma dos elementos al azar de la lista, crea dos nuevos y los compara,
- * añade los mejores a una segunda lista, "nuevaGeneracion"
+/* Escoge a un padre basado en una posibilidad que aumenta entre mejor sea su fitness
  *
- * Se puede agregar una máscara rand()%(sumadefitness) para que los mejores se reproduscan más
  *
  *
  */
-void genetico::Reproducir () {
-    int iPadre = escogerPadre ();
-    int iMadre = escogerPadre ();
+short Genetico::escogerPadre () {
 
-    int Padre = Poblacion[iPadre];
-    int Madre = Poblacion[iMadre];
+    float FitnessTotal=0;
+    unsigned short Index = 0;
 
-    int iSplit = rand()%30+2;      //para 1 int 2<iSplit<30
-    int iMutate = rand()%32;
-
-    int tempPadre = Padre;
-    int tempMadre = Madre;
-    tempPadre = tempPadre<<iSplit;
-    tempMadre = tempMadre>>iSplit;
-    int hijoA = tempMadre^tempPadre;
-
-    int tempPadre = Padre;
-    int tempMadre = Madre;
-    tempPadre = tempPadre>>iSplit;
-    tempMadre = tempMadre<<iSplit;
-    int hijoB = tempMadre^tempPadre;
-
-    if (iSplit==iMutate) {
-        mutatron(hijoA);
-        fitnessTest(Padre, Madre, hijoA, hijoB);         //se agregan los dos mejores a nuevaGeneracion
-    } else {
-        fitnessTest(Padre, Madre, hijoA, hijoB);         //se agregan los dos mejores a nuevaGeneracion
+    for (unsigned short i = 0; i<(this->Poblacion->getLenght()); i++) {
+       //cout << fitnessTest(*this->Poblacion->elementAt(i)->getElement()) << " ";
+       FitnessTotal =+ 1.0/(fitnessTest(*this->Poblacion->elementAt(i)->getElement()))+1;
     }
+
+    //cout << FitnessTotal;
+
+    srand (static_cast <unsigned> (time(0)));
+    float RandPadre = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/FitnessTotal));
+
+    //cout << RandPadre;
+
+    FitnessTotal = 0;
+
+    for (unsigned short i = 0; i<this->Poblacion->getLenght(); i++) {
+        FitnessTotal =+ 1/(fitnessTest(*this->Poblacion->elementAt(i)->getElement()))+1;
+        if (RandPadre <= FitnessTotal) {
+            Index = i;
+        }
+    }
+    return (short)Index;
+}
+
+/* toma un elemento y lo compara con su fitness ideal (obtenido de la imagen), devuelve el fitness real
+ * entre menor sea el fitness, se considera mejor
+ *
+ *
+ */
+short Genetico::fitnessTest (short SubjectD) {
+    return abs(conseguirFitness() - SubjectD);
+}
+
+/* Toma tres elementos y los compara entre ellos, agrega los mejores dos elementos a nuevaGeneracion
+ *
+ *
+ *
+ */
+void Genetico::seleccionNatural (short SubjectA, short SubjectB, short SubjectC, short SubjectD) {
+    short A=fitnessTest(SubjectA);
+    short B=fitnessTest(SubjectB);
+    short C=fitnessTest(SubjectC);
+    short D=fitnessTest(SubjectD);
+    short flag= 0;
+    //cout << A << " ";
+    //cout << B << " ";
+    //cout << C << " ";
+    //cout << D << " ";
+    if (A<B) {
+        if (B<=C || B<=D) {
+            flag++;
+            this->nuevaGeneracion->append(A);
+            //cout << nuevaGeneracion->getLenght();
+        }
+    }
+    if (B<=A) {
+        if (B<=C || B<=D) {
+            flag++;
+            this->nuevaGeneracion->append(B);
+            //cout << nuevaGeneracion->getLenght();
+        }
+   }
+   if (flag<2) {                                                      // no han habido dos hijos
+       if (C<D) {
+           if (C<=A || C<=B) {
+               flag++;
+               this->nuevaGeneracion->append(C);
+               //cout << nuevaGeneracion->getLenght();
+           }
+       }
+
+       if (D<=C) {
+           if (D<=A || D<=B) {
+               flag++;
+               this->nuevaGeneracion->append(D);
+               //cout << nuevaGeneracion->getLenght();
+           }
+       }
+   }
+   if (flag<2) {                                                     // no han habido dos hijos, agregue uno
+       this->nuevaGeneracion->append(D);
+   }
+}
+
+
+/* Este metodo toma dos elementos al azar de la lista, crea dos nuevos y los compara,
+* añade los mejores a una segunda lista, "nuevaGeneracion"
+*
+* Se puede agregar una máscara rand()%(sumadefitness) para que los mejores se reproduscan más
+*
+*
+*/
+void Genetico::Reproducir () {
+    SimpleList<short>* iChoose = new SimpleList<short>();
+    srand (static_cast <unsigned> (time(0)));
+    for (short i = 0; i<2; i++){
+        short RandPadre = static_cast <int> (rand()) / (static_cast <int> (RAND_MAX/225));
+        //cout << RandPadre << endl;
+        iChoose->append(RandPadre);
+    }
+    short iPadre = *iChoose->elementAt(0)->getElement();
+    short iMadre = *iChoose->elementAt(1)->getElement();
+
+   //short iPadre = 39;
+   //short iMadre = 25;
+
+   //short iPadre = escogerPadre ();
+   //short iMadre = escogerPadre ();
+
+   short Padre = *this->Poblacion->elementAt(iPadre)->getElement();
+   short Madre = *this->Poblacion->elementAt(iMadre)->getElement();
+
+   //cout << Padre << " ";
+   //cout << Madre << " ";
+
+   srand (static_cast <unsigned> (time(0)));
+   short iSplit = static_cast <int> (rand()) / (static_cast <int> (RAND_MAX/14));
+   iSplit += 2;
+
+   cout << iSplit;
+
+   short tempPadre = Padre;
+   short tempMadre = Madre;
+   tempPadre = tempPadre<<iSplit;
+   tempMadre = tempMadre>>iSplit;
+   short hijoA = tempMadre^tempPadre;
+
+   tempPadre = Padre;
+   tempMadre = Madre;
+   tempPadre = tempPadre>>iSplit;
+   tempMadre = tempMadre<<iSplit;
+   short hijoB = tempMadre^tempPadre;
+
+   if (iSplit<10) {
+       Mutatron* mt = new Mutatron(hijoA);
+       //hijoA = mt.mutatron(hijoA);
+       cout << "Mutatron activado" << endl;
+       seleccionNatural(Padre, Madre, hijoA, hijoB);         //se agregan los dos mejores a nuevaGeneracion
+   } else {
+       seleccionNatural(Padre, Madre, hijoA, hijoB);         //se agregan los dos mejores a nuevaGeneracion
+   }
 
 }
 
 /* agrega los mejores elementos en NuevaGeneracion a Poblacion,
- * ie, cambia las generaciones
- *
- *
- */
-void genetico::cambiarGeneraciones () {
-    for (int i = 0; i<this.Poblacion::getLenght(); i++) {
-        this.Poblacion::elementAt(i)=this.nuevaGeneracion::elementAt(i);
-    }
-    this.nuevaGeneracion::clear();
-}
-
-
-/* devuelve el mejor elemento de la lista simple Poblacion
- *
- *
- *
-*/
-int genetico::conseguirMejorIndividuo() {
-    int Mejor = 32766;
-    for (int i = 0; i<this.Poblacion::getLenght(); i++) {
-        if (fitnessTest(this.Poblacion::elementAt(i))<Mejor) {
-            Mejor = this.Poblacion::elementAt(i);
-       }
-    }
-    return Mejor;
-}
-
-
-/* corre el programa por x generaciones (iteraciones)
-* a partir de una poblacion de X elementos creada al azar
- *
- * reproduce hasta que las generaciones tenga la misma cantidad de elementos
- */
-int genetico::start (int Generaciones, int pPoblacion) {
-    crearPoblacion(pPoblacion);
-    for (int i = 0; i<Generaciones; i++) {
-
-        while (this.nuevaGeneracion::getLenght()<this.Poblacion::getLenght()) {            //siempre un número par
-           Reproducir();
-        }
-        cambiarGeneraciones();
-    }
-    return conseguirMejorIndividuo();
-}
-
-/*   Corre el prorama
+* ie, cambia las generaciones
 *
- */
-int genetico::main()
-{
-    int G = 0;
-    int P = 0;
-    cout << "Ingrese la cantidad de generaciones: " << endl;
-    cin >> G >> endl;
-    cout << "Ingrese la población máxima: " << endl;
-    cin >> P >> endl;
-    start (G, P);
-    return 0;
+*
+*/
+void Genetico::cambiarGeneraciones () {
+//    cout << this->Poblacion->getLenght()<<endl;
+   Poblacion=nuevaGeneracion;
+//    cout << this->Poblacion->getLenght() << " ";
+   this->nuevaGeneracion->clear();
+//    cout << this->nuevaGeneracion->getLenght()<<endl;
+//    cout << this->Poblacion->getLenght()<<endl;
+//    cout << "Cambio de Generacion" << endl;
+//    cout << endl;
+
 }
+

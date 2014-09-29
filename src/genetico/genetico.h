@@ -12,7 +12,7 @@ public:
     */
    Genetico(short Generaciones, short Densidad);
 private:
-   short Fitness = 0;
+   short Fitness ;
    SimpleList<short>* nuevaGeneracion;
    SimpleList<short>* Poblacion;
    /*!

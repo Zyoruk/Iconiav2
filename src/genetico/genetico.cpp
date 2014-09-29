@@ -13,7 +13,8 @@ using namespace std;
 */
 Genetico::Genetico (short Generaciones, short Densidad) {
    this->nuevaGeneracion = new SimpleList<short>();
-   this->Poblacion = new SimpleList<short>();
+   this->Poblacion = new SimpleList<short>();\
+   this->Fitness = 0;
    crearPoblacion(Densidad);
    for (short i = 0; i<Generaciones; i++) {
 cout << "Generacion: " << i << endl;

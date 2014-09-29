@@ -21,6 +21,7 @@ public:
     int indexOf(K pElement);
     bool deleteHead();
     void describe();
+    void sort();
 
 private:
     unsigned int _lenght;
@@ -267,6 +268,25 @@ void SimpleList<K>::describe(){
         cout << *temp->getElement() << " ";
         temp = temp->getNext();
     }
+       cout << "\n";
+}
+
+template <typename K>
+void SimpleList<K>::sort(){
+    K swap;
+    for (int i = 0 ; i < ( this->_lenght - 1 ); i++)
+      {
+        for (int j = 0 ; j < this->_lenght - i - 1; j++)
+        {
+          if (*this->elementAt(j)->getElement() > *this->elementAt(j+1)->getElement())
+          {
+            swap = *this->elementAt(j)->getElement();
+            this->elementAt(j)->setElement(*this->elementAt(j+1)->getElement());
+            this->elementAt(j+1)->setElement(swap);
+          }
+        }
+      }
+
 }
 
 #endif // SIMPLELIST_H

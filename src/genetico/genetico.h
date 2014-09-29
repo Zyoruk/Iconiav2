@@ -12,13 +12,13 @@ public:
     */
    Genetico(short Generaciones, short Densidad);
 private:
+   short Fitness = 0;
    SimpleList<short>* nuevaGeneracion;
    SimpleList<short>* Poblacion;
    /*!
-    * \brief conseguirFitness with the help of OpenCV gets the fitness from the original picture
-    * \return the value of the fitness
+    * \brief conseguirFitness with the help of OpenCV gets the fitness from the original picture and assigns it to a global variable
     */
-   short conseguirFitness();
+   void conseguirFitness();
 
    /*!
     * \brief crearIndividuo creates random short to populate a list
@@ -53,9 +53,10 @@ private:
    /*!
     * \brief Reproducir takes a random pair of elements (may be the same) from the population
     *        to create other 2 objects, then itgit  runs seleccionNatural to choose the best two
-    *
+    * \param seed
+    * \param Densidad
     */
-   void Reproducir();
+   void Reproducir(int seed, short Densidad);
    /*!
     * \brief cambiarGeneraciones converts the temporal list (nuevaGeneracion), with the best objects in the main list (Poblacion)
     *

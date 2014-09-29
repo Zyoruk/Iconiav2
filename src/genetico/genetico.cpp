@@ -17,22 +17,20 @@ Genetico::Genetico (short Generaciones, short Densidad) {
    this->Poblacion = new SimpleList<short>();
    crearPoblacion(Densidad);
    for (short i = 0; i<Generaciones; i++) {
-       cout << "Generacion" << i << endl;
-
-       //Se obtienen dos elementos de cada reproduccion -> Densidad/2 reproducciones = Densidad elementos
+cout << "Generacion: " << i << endl;
        for ( short j = 0 ; j < Densidad/2 ; j++){
-          Reproducir();
-          cout << j << " " << this->nuevaGeneracion->getLenght() << endl;
+          Reproducir(j ,Densidad);
+//cout << j << " " << this->nuevaGeneracion->getLenght() << endl;
        }
-       cambiarGeneraciones();
+        cambiarGeneraciones();
    }
 }
 
 /*     Se consigue a partir de openCV
 *
 */
-short Genetico::conseguirFitness () {
- return 158;
+void Genetico::conseguirFitness () {
+    this->Fitness = 255;
  }
 
 /* crea un población al azar
@@ -41,10 +39,12 @@ short Genetico::conseguirFitness () {
 *
 */
 void Genetico::crearPoblacion (short Densidad) {
+    conseguirFitness();
     srand (static_cast <unsigned> (time(0)));
     for (short i = 0; i<Densidad; i++) {
-        this->Poblacion->append(static_cast <int> (rand()) / (static_cast <int> (RAND_MAX/225)) );
+        this->Poblacion->append(static_cast <int> (rand()) / (static_cast <int> (RAND_MAX/Fitness)) );
     }
+//cout << "Poblacion creada, densidad: " << this->Poblacion->getLenght() << endl;
 }
 
 // /////////////////////////////////////////////////////////////////////// //
@@ -55,33 +55,33 @@ void Genetico::crearPoblacion (short Densidad) {
  *
  *
  */
-short Genetico::escogerPadre () {
+//short Genetico::escogerPadre () {
 
-    float FitnessTotal=0;
-    unsigned short Index = 0;
+//    float FitnessTotal=0;
+//    unsigned short Index = 0;
 
-    for (unsigned short i = 0; i<(this->Poblacion->getLenght()); i++) {
-       //cout << fitnessTest(*this->Poblacion->elementAt(i)->getElement()) << " ";
-       FitnessTotal =+ 1.0/(fitnessTest(*this->Poblacion->elementAt(i)->getElement()))+1;
-    }
+//    for (unsigned short i = 0; i<(this->Poblacion->getLenght()); i++) {
+//       //cout << fitnessTest(*this->Poblacion->elementAt(i)->getElement()) << " ";
+//       FitnessTotal =+ 1.0/(fitnessTest(*this->Poblacion->elementAt(i)->getElement()))+1;
+//    }
 
-    //cout << FitnessTotal;
+//    //cout << FitnessTotal;
 
-    srand (static_cast <unsigned> (time(0)));
-    float RandPadre = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/FitnessTotal));
+//    srand (static_cast <unsigned> (time(0)));
+//    float RandPadre = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/FitnessTotal));
 
-    //cout << RandPadre;
+//    //cout << RandPadre;
 
-    FitnessTotal = 0;
+//    FitnessTotal = 0;
 
-    for (unsigned short i = 0; i<this->Poblacion->getLenght(); i++) {
-        FitnessTotal =+ 1/(fitnessTest(*this->Poblacion->elementAt(i)->getElement()))+1;
-        if (RandPadre <= FitnessTotal) {
-            Index = i;
-        }
-    }
-    return (short)Index;
-}
+//    for (unsigned short i = 0; i<this->Poblacion->getLenght(); i++) {
+//        FitnessTotal =+ 1/(fitnessTest(*this->Poblacion->elementAt(i)->getElement()))+1;
+//        if (RandPadre <= FitnessTotal) {
+//            Index = i;
+//        }
+//    }
+//    return (short)Index;
+//}
 
 /* toma un elemento y lo compara con su fitness ideal (obtenido de la imagen), devuelve el fitness real
  * entre menor sea el fitness, se considera mejor
@@ -89,7 +89,7 @@ short Genetico::escogerPadre () {
  *
  */
 short Genetico::fitnessTest (short SubjectD) {
-    return abs(conseguirFitness() - SubjectD);
+    return abs(Fitness - SubjectD);
 }
 
 /* Toma tres elementos y los compara entre ellos, agrega los mejores dos elementos a nuevaGeneracion
@@ -102,45 +102,34 @@ void Genetico::seleccionNatural (short SubjectA, short SubjectB, short SubjectC,
     short B=fitnessTest(SubjectB);
     short C=fitnessTest(SubjectC);
     short D=fitnessTest(SubjectD);
-    short flag= 0;
-    //cout << A << " ";
-    //cout << B << " ";
-    //cout << C << " ";
-    //cout << D << " ";
-    if (A<B) {
-        if (B<=C || B<=D) {
-            flag++;
-            this->nuevaGeneracion->append(A);
-            //cout << nuevaGeneracion->getLenght();
-        }
+    SimpleList<short>* numbers = new SimpleList<short>();
+    numbers->append(A);
+    numbers->append(B);
+    numbers->append(C);
+    numbers->append(D);
+    //appends best element to nuevaGeneracion
+    if ( *numbers->getHead()->getElement() == A){
+        this->nuevaGeneracion->append(SubjectA);
+    }else if ( *numbers->getHead()->getElement() == B){
+        this->nuevaGeneracion->append(SubjectB);
+    }else if ( *numbers->getHead()->getElement() == C){
+        this->nuevaGeneracion->append(SubjectC);
+    }else{
+        this->nuevaGeneracion->append(SubjectD);
     }
-    if (B<=A) {
-        if (B<=C || B<=D) {
-            flag++;
-            this->nuevaGeneracion->append(B);
-            //cout << nuevaGeneracion->getLenght();
-        }
-   }
-   if (flag<2) {                                                      // no han habido dos hijos
-       if (C<D) {
-           if (C<=A || C<=B) {
-               flag++;
-               this->nuevaGeneracion->append(C);
-               //cout << nuevaGeneracion->getLenght();
-           }
-       }
+    //appends second best element to nuevaGeneracion
+    if ( *numbers->getHead()->getNext()->getElement() == A){
+        this->nuevaGeneracion->append(SubjectA);
 
-       if (D<=C) {
-           if (D<=A || D<=B) {
-               flag++;
-               this->nuevaGeneracion->append(D);
-               //cout << nuevaGeneracion->getLenght();
-           }
-       }
-   }
-   if (flag<2) {                                                     // no han habido dos hijos, agregue uno
-       this->nuevaGeneracion->append(D);
-   }
+    }else if ( *numbers->getHead()->getNext()->getElement()== B){
+        this->nuevaGeneracion->append(SubjectB);
+
+    }else if (*numbers->getHead()->getNext()->getElement() == C){
+        this->nuevaGeneracion->append(SubjectC);
+
+    }else{
+        this->nuevaGeneracion->append(SubjectD);
+    }
 }
 
 
@@ -151,38 +140,32 @@ void Genetico::seleccionNatural (short SubjectA, short SubjectB, short SubjectC,
 *
 *
 */
-void Genetico::Reproducir () {
+void Genetico::Reproducir (int seed, short Densidad) {
     SimpleList<short>* iChoose = new SimpleList<short>();
     srand (static_cast <unsigned> (time(0)));
     for (short i = 0; i<2; i++){
-        short RandPadre = static_cast <int> (rand()) / (static_cast <int> (RAND_MAX/225));
-        //cout << RandPadre << endl;
+//half the population, in case the last object gets the biggest seed
+        short RandPadre = static_cast <int> (rand()) / (static_cast <int> (RAND_MAX/(Densidad/2)));
         iChoose->append(RandPadre);
     }
-    short iPadre = *iChoose->elementAt(0)->getElement();
-    short iMadre = *iChoose->elementAt(1)->getElement();
 
-   //short iPadre = 39;
-   //short iMadre = 25;
+//Due to the nature of the generic funciton we add a seed, j from the for loop, this makes random numbers n every iteration
+    short iPadre = *iChoose->elementAt(0)->getElement()+seed;
+    short iMadre = *iChoose->elementAt(1)->getElement()+seed;
 
-   //short iPadre = escogerPadre ();
-   //short iMadre = escogerPadre ();
+    short Padre = *this->Poblacion->elementAt(iPadre)->getElement();
+    short Madre = *this->Poblacion->elementAt(iMadre)->getElement();
 
-   short Padre = *this->Poblacion->elementAt(iPadre)->getElement();
-   short Madre = *this->Poblacion->elementAt(iMadre)->getElement();
+//    cout << "Padre: " << Padre << " ";
+//    cout << "Madre: " << Madre << " ";
 
-   //cout << Padre << " ";
-   //cout << Madre << " ";
+    srand (static_cast <unsigned> (time(0)));
+    short iSplit = static_cast <int> (rand()) / (static_cast <int> (RAND_MAX/14));
+    iSplit += 1;
 
-   srand (static_cast <unsigned> (time(0)));
-   short iSplit = static_cast <int> (rand()) / (static_cast <int> (RAND_MAX/14));
-   iSplit += 2;
-
-   cout << iSplit;
-
-   short tempPadre = Padre;
-   short tempMadre = Madre;
-   tempPadre = tempPadre<<iSplit;
+    short tempPadre = Padre;
+    short tempMadre = Madre;
+    tempPadre = tempPadre<<iSplit;
    tempMadre = tempMadre>>iSplit;
    short hijoA = tempMadre^tempPadre;
 
@@ -192,10 +175,11 @@ void Genetico::Reproducir () {
    tempMadre = tempMadre<<iSplit;
    short hijoB = tempMadre^tempPadre;
 
-   if (iSplit<10) {
-       Mutatron* mt = new Mutatron(hijoA);
-       //hijoA = mt.mutatron(hijoA);
-       cout << "Mutatron activado" << endl;
+//   cout << "hijoa:" << hijoA << " ";
+//   cout << "hijob: " << hijoB <<endl;
+
+   if (iSplit>10) {
+       //cout << "Mutatron activado, iSplit: " << iSplit <<endl;
        seleccionNatural(Padre, Madre, hijoA, hijoB);         //se agregan los dos mejores a nuevaGeneracion
    } else {
        seleccionNatural(Padre, Madre, hijoA, hijoB);         //se agregan los dos mejores a nuevaGeneracion
@@ -209,14 +193,18 @@ void Genetico::Reproducir () {
 *
 */
 void Genetico::cambiarGeneraciones () {
-//    cout << this->Poblacion->getLenght()<<endl;
-   Poblacion=nuevaGeneracion;
-//    cout << this->Poblacion->getLenght() << " ";
-   this->nuevaGeneracion->clear();
-//    cout << this->nuevaGeneracion->getLenght()<<endl;
-//    cout << this->Poblacion->getLenght()<<endl;
-//    cout << "Cambio de Generacion" << endl;
-//    cout << endl;
 
+    SimpleListNode<short>* temp = nuevaGeneracion->getHead();
+    int i = 0;
+    while (nuevaGeneracion->getLenght() != 0 ){
+        Poblacion->elementAt(i)->setElement(*temp->getElement());
+        nuevaGeneracion->deleteHead();
+        temp = nuevaGeneracion->getHead();
+        i++;
+    }
+    cout << "\n";
+    this->Poblacion->describe();
+    cout << " \n";
+    cout << this->nuevaGeneracion->getLenght()<<endl;
+    cout << this->Poblacion->getLenght()<<endl;
 }
-

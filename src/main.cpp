@@ -1,6 +1,7 @@
 using namespace std;
 #include "src/dataStructures/Graph/graph.h"
 #include "src/dataStructures/SimpleList/SimpleList.h"
+#include "src/genetico/genetico.h"
 #include "iostream"
 
 int main()
@@ -17,6 +18,8 @@ int main()
    // temp->moveAB(198,200);
     temp->moveAB(56,200);
 //    temp->searchforPaths(98, 200, );
+
+    Genetico* wcs = new Genetico(7001, 200);
 
     return 0;
 }

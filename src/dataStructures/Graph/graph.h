@@ -2,6 +2,7 @@
 #define GRAPH_H
 #include "src/dataStructures/Graph/graphNode/graphnode.h"
 #include "src/dataStructures/SimpleList/SimpleList.h"
+#include "src/dataStructures/stack/stack.h"
 #include "iostream"
 
 template <typename K>
@@ -82,7 +83,7 @@ private:
      * \param pList
      * \param closed
      */
-    void searchforPaths (GraphNode<K>* pNodeA , GraphNode<K>* pNodeB, SimpleList<GraphNode<K>* >* pList, SimpleList<GraphNode<K>* >* closed);
+    void searchforPaths (GraphNode<K> *pNodeA, GraphNode<K> *pNodeB, SimpleList<GraphNode<K> *>* pList, Stack<GraphNode<K>* >* path, SimpleList<GraphNode<K>* >* closed);
 };
 template <typename K>
 Graph<K>::Graph(){
@@ -164,50 +165,79 @@ bool Graph<K>::moveAB(K nodeA, K nodeB){
     int indexB = this->_elements->indexOf(nodeB);
     GraphNode<K>* tempA = *this->_GraphNodes->elementAt(indexA)->getElement();
     GraphNode<K>* tempB = *this->_GraphNodes->elementAt(indexB)->getElement();
+    SimpleList<GraphNode<K>* >* solution = new SimpleList<GraphNode<K>* >();
     SimpleList<GraphNode<K>* >* closed = new SimpleList<GraphNode<K>* >();
-    SimpleList<GraphNode<K>* >* possibleSolution = new SimpleList<GraphNode<K>* >();
-    cout << (*tempA->getElement()) << " ";
-    cout << (*tempB->getElement()) << " ";
-    cout << closed << " ";
-    cout << possibleSolution << " ";
-    this->searchforPaths(tempA,tempB,possibleSolution,closed);
-    if(possibleSolution->getLenght() == 1){
+    Stack<GraphNode<K>* >* path = new Stack<GraphNode<K>* >();
+    if (tempA->getConnections()->getLenght() == 0){
         return false;
-    }else if (*(*possibleSolution->getHead()->getElement())->getElement() == nodeA &&
-              *(*possibleSolution->getTail()->getElement())->getElement() == nodeB){
+    }
+    this->searchforPaths(tempA,tempB,solution,path,closed);
+    Stack<GraphNode<K>* >* temp =  new Stack<GraphNode<K>* >();
+    while (solution->getLenght() !=0){
+        temp->push(*solution->getHead()->getElement());
+        solution->deleteHead();
+    }
+
+    SimpleList<GraphNode<K>* >* newsolution = new SimpleList<GraphNode<K>* >();
+    while (temp->getLenght() != 0){
+        GraphNode<K>* tp = *temp->pop()->getElement();
+        newsolution->append(tp);
+    }
+    this->searchforPaths(tempA,tempB,solution,path,closed);
+
+    //revisar solucion
+    if(newsolution->getLenght() == 1 || newsolution->getLenght() == 0){
+        return false;
+    }else if (*(*newsolution->getHead()->getElement())->getElement() == nodeA &&
+              *(*newsolution->getTail()->getElement())->getElement() == nodeB){
         return true;
     }else{
         return false;
     }
-    return true;
 }
 
 template <typename K>
-void Graph<K>::searchforPaths(GraphNode<K> *pNodeA, GraphNode<K> *pNodeB, SimpleList<GraphNode<K> *>* pList, SimpleList<GraphNode<K>* >* closed){
-    //Get the connections of the node
-    SimpleList<GraphNode<K>* >* temp = pNodeA->getConnections();
-    //Add to the solution the initial node.
-    pList->append(pNodeA);
-    //If has connections
-    if ( temp->getLenght() != 0){
-        //If the current connections have the node we are searching. Then we add the node and clear.
-        while ( temp->getLenght() != 0){
-            if (temp->ifExists(pNodeB)){
-                pList->append(pNodeB);
-                closed->clear();
-                closed = 0;
-                temp->clear();
-            }else{
-                //If the current connections didnt have the node. We use the first one.
-                searchforPaths(*temp->getHead()->getElement(), pNodeB, pList,closed);
+void Graph<K>::searchforPaths(GraphNode<K> *pNodeA, GraphNode<K> *pNodeB, SimpleList<GraphNode<K> *>* pList, Stack<GraphNode<K>* >* path, SimpleList<GraphNode<K>* >* closed){
+    path->push(pNodeA);
+    //Hay coneccion con el nodo final
+    if ((*path->top()->getElement())->existsConnection(pNodeB)){
+        path->push(pNodeB);
+        //armar solucion
+        while (path->getLenght() != 0){
+            GraphNode<K>* temp = *path->pop()->getElement();
+            pList->append(temp);
+        }
+    //El nodo no tiene conecciones
+    } else if((*path->top()->getElement())->getConnections()->getLenght() == 0){
+        path->pop();
+        if ( path->getLenght() != 0){
+            this->searchforPaths(*path->top()->getElement(), pNodeB, pList, path, closed);
+        }
+    //El nodo existe en la lista de elementos cerrados
+    } else if (closed->ifExists(*path->top()->getElement())){
+        path->pop();
+        if ( path->getLenght() != 0){
+            this->searchforPaths(*path->top()->getElement(), pNodeB, pList, path, closed);
+        }
+    // El nodo tiene conecciones, se procede a revisarlas
+    } else{
+        SimpleList<GraphNode<K>* >* temp = (*path->top()->getElement())->getConnections();
+        //El nodo tiene conecciones
+        while (temp->getLenght() != 0){
+            //La coneccion existe en la lista de elementos cerrados, se elimina
+            if (closed->ifExists(*temp->getHead()->getElement() )){
+                temp->deleteHead();
+            //Se corre el programa con el nodo obtenido en la coneccion
+            } else {
+                this->searchforPaths(*temp->getHead()->getElement(), pNodeB, pList, path, closed);
                 temp->deleteHead();
             }
         }
-        temp = 0;
-    }else{
-        //It is a dead - end.
-        closed->append(pNodeA);
     }
-    }
+}
+
+
+
+
 
 #endif // GRAPH_H

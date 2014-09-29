@@ -89,7 +89,6 @@ Graph<K>::Graph(){
     this->_GraphNodes = new SimpleList<GraphNode<K>* >();
     this->_elements = new SimpleList<K>();
 }
-
 template <typename K>
 bool Graph<K>::add(K pNode){
     if (this->_elements->ifExists(pNode)){
@@ -146,7 +145,6 @@ void Graph<K>::describe(){
         i++;
     }
 }
-
 template <typename K>
 bool Graph<K>::clear(){
     this->_elements->clear();

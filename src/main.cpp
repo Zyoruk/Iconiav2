@@ -2,7 +2,6 @@
 #include "src/dataStructures/SimpleList/SimpleList.h"
 #include "src/genetico/genetico.h"
 #include "iostream"
-
 #include "src/dataStructures/stack/stack.h"
 
 using namespace std;

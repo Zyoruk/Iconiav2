@@ -5,10 +5,8 @@
 #include "src/genetico/mutatron.h"
 using namespace std;
 
-Mutatron::Mutatron(unsigned short Individuo){
+Mutatron::Mutatron(){
 
-    unsigned short Mutageno = crearMutageno();
-    Individuo= mutar(Individuo, Mutageno);
 }
 
 /*   Muestra los cromosomas booleanos del elemento dado,
@@ -26,7 +24,6 @@ void Mutatron::printBits(unsigned short num)
    cout << endl;
 }
 
-
 /*   Crea un mutageno a partir de un numero aleatorio que indica la posicion de este
  * el mutageno es un vector de bits con un único elemento en 1 (los demás están en cero)
  *
@@ -39,32 +36,19 @@ unsigned short Mutatron::crearMutageno() {
 
     unsigned short Vial = 0;
     Vial = ~Vial;
-    Vial=Vial>>31;                                                         //Da problemas convirtiendo sizeof()...
+    Vial=Vial>>31;
     Vial=Vial<<RandomGen;
 
     return Vial;
 }
 
-
-/*   Utiliza la funcion XOR para unir los vectores de bits de esta forma
+/*   Esta función maneja la mutacion del individuo que toma como argumento.
+ *  siempre devuelve al Individuo con un bit diferente, en forma de  short*
+ *   Utiliza la funcion XOR para unir los vectores de bits de esta forma
  *
- *
- * return vector de bits; el individuo mutado
  */
-unsigned short Mutatron::mutar (unsigned short Individuo, unsigned short Mutageno) {
+unsigned short Mutatron::mutar (unsigned short Individuo) {
+    unsigned short Mutageno = crearMutageno();
     Individuo =  Individuo^Mutageno;
     return Individuo;
 }
-
-
-/*   Esta función maneja la mutacion del individuo que toma como argumento.
- *  siempre devuelve al Individuo con un bit diferente, en forma de  short*
- *
- *
- */
-//unsigned short Mutatron::mutatron (unsigned short Individuo) {
-
-    //unsigned short Mutageno=crearMutageno(Individuo);
-    //unsigned short Xperson = mutar(Individuo, Mutageno);
-    //return Xperson;
-//}

@@ -8,7 +8,15 @@ public:
      * \brief Mutatron takes an unsigned short and using bit logic changes the value of a random bit
      * \param Individuo it's the same unsigned short with one bit with opposite value
      */
-    Mutatron(unsigned short Individuo);
+    Mutatron();
+    /*!
+     * \brief mutar takes the mutegen from crearMutageno and Individuo and uses the binary function XOR
+     *              to modify Individuo
+     * \param Individuo the unsigned short to be changed
+     * \param Mutageno the unsigned short to cause the modification
+     * \return Individuo the altered Individuo
+     */
+    unsigned short mutar (unsigned short Individuo);
 private:
     /*!
      * \brief printBits it's used for debugging, prints bit by bit the unsigned short it receives in the console
@@ -22,15 +30,6 @@ private:
      * \return Mutante it's the unsigned created
      */
     unsigned short crearMutageno ();
-    /*!
-     * \brief mutar takes the mutegen from crearMutageno and Individuo and uses the binary function XOR
-     *              to modify Individuo
-     * \param Individuo the unsigned short to be changed
-     * \param Mutageno the unsigned short to cause the modification
-     * \return Individuo the altered Individuo
-     */
-    unsigned short mutar (unsigned short Individuo, unsigned short Mutageno);
-
 };
 
 #endif // MUTATRON_H

@@ -6,11 +6,16 @@ class Genetico
 {
 public:
    /*!
-    * \brief start creates and reproduces a genetic algorythm for X generations of X subjects
+    * \brief runs
+    */
+   Genetico(short Fitness);
+   /*!
+    * \brief start: it creates and reproduces a genetic algorythm for X generations of X subjects
     * \param Generaciones the amount of generations that the program is going to run
     * \param Densidad the amount of persons in the population. It has to be pair since two parents have to children
+    * \return
     */
-   Genetico(short Generaciones, short Densidad);
+   short start (int Generaciones, int Densidad);
 private:
    short Fitness ;
    SimpleList<short>* nuevaGeneracion;

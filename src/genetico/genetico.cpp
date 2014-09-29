@@ -1,7 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
-#include <cstdlib>
-#include <ctime>
+
 #include "src/dataStructures/SimpleList/SimpleList.h"
 #include "src/genetico/genetico.h"
 #include "src/genetico/mutatron.h"

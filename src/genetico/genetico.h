@@ -53,8 +53,8 @@ private:
    /*!
     * \brief Reproducir takes a random pair of elements (may be the same) from the population
     *        to create other 2 objects, then itgit  runs seleccionNatural to choose the best two
-    * \param seed
-    * \param Densidad
+    * \param seed is the value of j in the for loop, it supports the random function
+    * \param Densidad used with to create the upper limit of the random function
     */
    void Reproducir(int seed, short Densidad);
    /*!

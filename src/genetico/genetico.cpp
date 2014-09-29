@@ -16,12 +16,35 @@ Genetico::Genetico (short pFitness) {
     this->Poblacion = new SimpleList<short>();
 }
 
-short Genetico::start (int Generaciones, int Densidad) {
+/* devuelve el mejor elemento de la lista simple Poblacion
+ *
+ */
+//short Genetico::conseguirMejorIndividuo() {
+//    short Mejor=32766;
+//    for (int i = 0; i<this->Poblacion->getLenght(); i++) {
+//        if (Mejor>fitnessTest(*this->Poblacion->elementAt(i)->getElement())) {
+//            Mejor = *this->Poblacion->elementAt(i)->getElement();
+//        }
+//    }
+//    return Mejor;
+//}
+
+short Genetico::conseguirMejorIndividuo(){
+    short Mejor=0;
+    for (int i = 0; i<this->Poblacion->getLenght(); i++) {
+        if (Mejor<(*this->Poblacion->elementAt(i)->getElement())) {
+            Mejor = *this->Poblacion->elementAt(i)->getElement();
+        }
+    }
+    return Mejor;
+}
+
+
+short Genetico::start (short Generaciones, short Densidad) {
+    crearPoblacion (Densidad);
     for (short i = 0; i<Generaciones; i++) {
-        cout << "Generacion: " << i << endl;
-        for ( short j = 0 ; j < Densidad/2 ; j++){
+        for (short j = 0 ; j<Densidad/2; j++) {
             Reproducir(j ,Densidad);
-            //cout << j << " " << this->nuevaGeneracion->getLenght() << endl;
         }
         cambiarGeneraciones();
     }
@@ -38,22 +61,10 @@ void Genetico::crearPoblacion (short Densidad) {
     for (short i = 0; i<Densidad; i++) {
         this->Poblacion->append(static_cast <int> (rand()) / (static_cast <int> (RAND_MAX/Fitness)) );
     }
-    //cout << "Poblacion creada, densidad: " << this->Poblacion->getLenght() << endl;
 }
 
 
-/* devuelve el mejor elemento de la lista simple Poblacion
- *
- */
-short Genetico::conseguirMejorIndividuo() {
-    short Mejor=32766;
-    for (unsigned int i = 0; i<this->Poblacion->getLenght(); i++) {
-        if (fitnessTest(*this->Poblacion->elementAt(i)->getElement())<Mejor) {
-            Mejor = *this->Poblacion->elementAt(i)->getElement();
-        }
-    }
-    return Mejor;
-}
+
 
 /* toma un elemento y lo compara con su fitness ideal (obtenido de la imagen), devuelve el fitness real
  * entre menor sea el fitness, se considera mejor
@@ -113,6 +124,7 @@ void Genetico::seleccionNatural (short SubjectA, short SubjectB, short SubjectC,
 *
 */
 void Genetico::Reproducir (int seed, short Densidad) {
+
     SimpleList<short>* iChoose = new SimpleList<short>();
     srand (static_cast <unsigned> (time(0)));
     for (short i = 0; i<2; i++){
@@ -124,8 +136,9 @@ void Genetico::Reproducir (int seed, short Densidad) {
     short iPadre = *iChoose->elementAt(0)->getElement()+seed;
     short iMadre = *iChoose->elementAt(1)->getElement()+seed;
 
-    short Padre = *this->Poblacion->elementAt(iPadre)->getElement();
-    short Madre = *this->Poblacion->elementAt(iMadre)->getElement();
+
+    short Padre = *(this->Poblacion->elementAt(iPadre)->getElement());
+    short Madre = *(this->Poblacion->elementAt(iMadre)->getElement());
 
     srand (static_cast <unsigned> (time(0)));
     short iSplit = static_cast <int> (rand()) / (static_cast <int> (RAND_MAX/14));
@@ -166,5 +179,5 @@ void Genetico::cambiarGeneraciones () {
         temp = nuevaGeneracion->getHead();
         i++;
     }
-    this->Poblacion->describe();
+    //this->Poblacion->describe();
 }

@@ -15,7 +15,7 @@ public:
     * \param Densidad the amount of persons in the population. It has to be pair since two parents have to children
     * \return
     */
-   short start (int Generaciones, int Densidad);
+   short start (short Generaciones, short Densidad);
 private:
    short Fitness ;
    SimpleList<short>* nuevaGeneracion;

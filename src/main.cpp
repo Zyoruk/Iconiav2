@@ -8,5 +8,8 @@ using namespace std;
 
 int main()
 {
+    Genetico* gen = new Genetico(152);
+    short res = gen->start(3000, 200);
+    cout << res;
     return 0;
 }
